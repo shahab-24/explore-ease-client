@@ -5,9 +5,9 @@ const Footer = () => {
                 <footer className="footer footer-horizontal footer-center bg-black text-primary-content p-10">
   <aside>
     <img className='w-20 h-20 rounded-xl' src='/src/assets/logo (2).png' alt='logo'></img>
-    <p className="font-bold"><span className='text-blue-900 text-2xl font-bold'>Explore</span>
+    <p className="font-bold"><span className='text-blue-900 text-2xl font-'>Explore</span>
       <span className='text-green-600 font-bold text-2xl'>Ease </span>  Tourism Ltd.
-      <p>"Find Your Next Adventure"</p>
+      "Find Your Next Adventure"
       <br />
       Providing reliable services since 1992
     </p>

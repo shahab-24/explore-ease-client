@@ -1,0 +1,43 @@
+[
+        {
+          "title": "Himalayas, Nepal/India/Tibet/China",
+          "description": "The Himalayas are the highest mountain range in the world, home to Everest, and known for its breathtaking views, rugged terrain, and spiritual significance.",
+          "image_url": "https://i.ibb.co.com/qMJM679f/himalayas.jpg"
+        },
+        {
+          "title": "Great Barrier Reef, Australia",
+          "description": "The Great Barrier Reef is the world's largest coral reef system, offering vibrant marine life, crystal-clear waters, and stunning underwater views.",
+          "image_url": "https://i.ibb.co.com/sdnBWwCM/reef.jpg"
+        },
+        {
+          "title": "Amazon Rainforest, South America",
+          "description": "The Amazon Rainforest is the largest tropical rainforest in the world, teeming with diverse wildlife and playing a key role in the Earth's climate.",
+          "image_url": "https://i.ibb.co.com/YBjXS3J4/ama-africa.jpg"
+        },
+        {
+          "title": "Swiss Alps, Switzerland",
+          "description": "The Swiss Alps are famous for their picturesque landscapes, with snow-capped peaks, beautiful valleys, and world-renowned skiing resorts.",
+          "image_url": "https://i.ibb.co.com/qF0GcxTt/swiss.jpg"
+        },
+        {
+          "title": "Maldives, Indian Ocean",
+          "description": "The Maldives is an island nation known for its crystal-clear turquoise waters, pristine beaches, and stunning coral reefs, perfect for diving and relaxation.",
+          "image_url": "https://i.ibb.co.com/wrY7knpy/maldives2.jpg"
+        },
+        {
+          "title": "Amazon River, South America",
+          "description": "The Amazon River is the second-longest river in the world, flowing through the dense Amazon Rainforest, home to an abundance of plant and animal species.",
+          "image_url": "https://i.ibb.co.com/YBjXS3J4/ama-africa.jpg"
+        },
+        {
+          "title": "Costa Rica Rainforests, Costa Rica",
+          "description": "Costa Rica's rainforests are rich in biodiversity, with lush jungles, exotic wildlife, and eco-tourism opportunities like hiking, zip-lining, and wildlife watching.",
+          "image_url": "https://i.ibb.co.com/sXvGvF4/costa.jpg"
+        },
+        {
+          "title": "Banff National Park, Canada",
+          "description": "Banff National Park, located in the Canadian Rockies, offers dramatic mountain landscapes, crystal-clear lakes, and diverse wildlife, perfect for hiking and outdoor adventures.",
+          "image_url": "https://i.ibb.co.com/ZpdpSWZb/canada.jpg"
+        }
+      ]
+      
