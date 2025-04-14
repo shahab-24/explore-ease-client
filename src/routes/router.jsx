@@ -3,11 +3,12 @@ import {
         
       } from "react-router";
 
+import MainLayout from "../Layouts/MainLayout";
+
 
 export const router = createBrowserRouter([
         {
           path: "/",
-          element:<div className="text-center bg-purple-400">Hello
-          <button className="btn btn-secondary btn-lg">click</button></div>,
+          element:<MainLayout></MainLayout>,
         },
       ]);
