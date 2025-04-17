@@ -3,9 +3,13 @@ import { NavLink } from 'react-router';
 
 const Navbar = () => {
         const links = <><li><NavLink>Home</NavLink></li>
-        <li><NavLink>Places</NavLink></li></>
+
+        <li><NavLink>Community</NavLink></li>
+        <li><NavLink>About Us</NavLink></li>
+        <li><NavLink>Trips</NavLink></li>
+        </>
         return (
-                <div className="navbar bg-base-100 shadow-sm">
+                <div className="navbar bg-transparent shadow-sm">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

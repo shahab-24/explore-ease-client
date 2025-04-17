@@ -10,7 +10,7 @@ const Home = () => {
         }, [])
         return (
                 <div>
-                         <h2>Hotel List</h2>
+                        
                          <div className="w-full mx-auto mt-6">
       <div className="carousel w-full rounded-box">
         {places.map((place, index) => (
@@ -21,7 +21,7 @@ const Home = () => {
           >
             <img
               src={place.image_url}
-              className="w-full h-[400px] object-cover"
+              className="w-full h-[500px] object-cover"
               alt={place.title}
             />
             <div className="absolute flex items-center h-full left-0 top-0 bg-gradient-to-r from-black to-transparent p-8">
