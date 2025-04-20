@@ -7,7 +7,7 @@ const Footer = () => {
     <img className='w-20 h-20 rounded-xl' src='/src/assets/logo (2).png' alt='logo'></img>
     <p className="font-bold"><span className='text-blue-900 text-2xl font-'>Explore</span>
       <span className='text-green-600 font-bold text-2xl'>Ease </span>  Tourism Ltd.
-      "Find Your Next Adventure"
+      <p className="text-green-400 text-sm">"Find Your Next Adventure"</p>
       <br />
       Providing reliable services since 1992
     </p>

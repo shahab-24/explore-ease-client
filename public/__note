@@ -1,0 +1,10 @@
+Homepage- Banner (components)
+        -Overview (video components)
+        -2 tabs with our packages and meet out tour guides
+        -our packages (card) with packages details card (components)
+        -tour guides (card) with tour guide details card (components)
+        -story section (card)
+
+Packaged Details page- image (grid layout) with info(components)
+        -tour plan (daily)
+        -tour guide list with clickable card components
