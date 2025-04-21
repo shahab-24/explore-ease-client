@@ -23,10 +23,10 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="navbar shadow-sm bg-green-400">
+    <div className="navbar shadow-sm bg-green-400 fixed top-0 left-0 z-50">
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden pl-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -53,22 +53,36 @@ const Navbar = () => {
         <div className="hidden justify-center items-center md:flex lg:flex">
         <img className="w-20 h-18 rounded-2xl" src="src/assets/logo (2).png"></img>
         {/* <a className="btn btn-ghost text-xl pl-1 hidden md:flex lg:flex">ExploreEase</a> */}
-        <div className="flex flex-col pl-2">
-        <p className="font-bold"><span className='text-blue-900 text-2xl font-'>Explore</span>
+        
+        <div className="flex lg:flex-col pl-2 flex-row-reverse md:flex-start">
+        <p className="font-xl"><span className='text-blue-900 text-2xl font-'>Explore</span>
       <span className='text-green-600 font-bold text-2xl'>Ease </span>
       
       
     </p>
     <p className="text-green-400 text-sm">"Find Your Next Adventure"</p>
         </div>
+        
+        
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end hidden md:block lg:flex">
         <NavLink to='/login' className="btn">Login</NavLink>
+
+        
       </div>
+      {/* right side  */}
+      <div className="flex md:hidden justify-center items-center">
+        <p className="font-xl md:font-bold"><span className='text-blue-900 text-2xl font-'>Explore</span>
+      <span className='text-green-600 font-bold text-2xl'>Ease </span>
+      
+      
+    </p>
+    <p className="text-green-400 text-sm">"Find Your Next Adventure"</p>
+        </div>
     </div>
   );
 };
