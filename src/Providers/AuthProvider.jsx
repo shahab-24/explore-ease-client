@@ -9,6 +9,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import axios from "axios";
 
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -44,7 +45,27 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
+        try {
+                if(currentUser?.email){
+                        setUser(currentUser)
+                        await axios.post(`${import.meta.env.VITE_API_URL}/users/${currentUser.email}`, {
+                                name: currentUser?.displayName,
+                                email:currentUser?.email,
+                                image: currentUser?.photoURL
+                        });
+
+                        await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {
+                                email: currentUser?.email},
+                                {
+                                withCredentials: true
+                        })
+                }
+                
+        } catch (error) {
+                
+        }
       console.log("hello from state", currentUser.email);
+
     });
     return () => unSubscribe();
   }, []);
