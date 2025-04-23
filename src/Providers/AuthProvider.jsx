@@ -32,18 +32,30 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const signInWithGoogle = () => {
+  const signInWithGoogle = async () => {
     setLoading(true);
-    signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        setUser(result.user);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+
+    try {
+        const result = await   signInWithPopup(auth, googleProvider)
+        return result?.user;
+    } catch (error) {
+        setErr(error.message);
+    console.error("Google Sign-In Error:", error);
+        
+    }finally{
+        setLoading(false);
+    }
+//     signInWithPopup(auth, googleProvider)
+//       .then((result) => {
+//         setUser(result.user);
+//       })
+//       .catch((error) => {
+//         console.log(error.message);
+//       });
   };
 
   useEffect(() => {
+        setLoading(true)
     const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
         try {
                 if(currentUser?.email){
@@ -59,15 +71,23 @@ const AuthProvider = ({ children }) => {
                                 {
                                 withCredentials: true
                         })
+                } else{
+                        setUser(null)
+                        await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
+                                withCredentials: true
+                        })
                 }
                 
         } catch (error) {
+                console.error('logout failed', error)
                 
+        }finally{
+                setLoading(false)
         }
       console.log("hello from state", currentUser.email);
 
     });
-    return () => unSubscribe();
+    return unSubscribe;
   }, []);
 
   const logOut = async () => {
