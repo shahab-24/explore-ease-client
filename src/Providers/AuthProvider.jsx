@@ -37,6 +37,7 @@ const AuthProvider = ({ children }) => {
 
     try {
         const result = await   signInWithPopup(auth, googleProvider)
+        
         return result?.user;
     } catch (error) {
         setErr(error.message);
@@ -60,7 +61,7 @@ const AuthProvider = ({ children }) => {
         try {
                 if(currentUser?.email){
                         setUser(currentUser)
-                        await axios.post(`${import.meta.env.VITE_API_URL}/users/${currentUser.email}`, {
+                        await axios.post(`${import.meta.env.VITE_API_URL}/users`, {
                                 name: currentUser?.displayName,
                                 email:currentUser?.email,
                                 image: currentUser?.photoURL
@@ -73,7 +74,7 @@ const AuthProvider = ({ children }) => {
                         })
                 } else{
                         setUser(null)
-                        await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
+                        await axios.get(`${import.meta.env.VITE_API_URL}/jwt/logout`, {
                                 withCredentials: true
                         })
                 }
@@ -84,11 +85,12 @@ const AuthProvider = ({ children }) => {
         }finally{
                 setLoading(false)
         }
-      console.log("hello from state", currentUser.email);
+      console.log("hello from state", currentUser?.email);
 
     });
     return unSubscribe;
   }, []);
+
 
   const logOut = async () => {
     await signOut(auth);

@@ -2,7 +2,42 @@ import React from "react";
 import Lottie from "lottie-react";
 import loginData from "../../assets/login.json";
 
+import useAuth from "../../components/hooks/useAuth";
+import Swal from "sweetalert2";
+
 const Login = () => {
+        const {signInWithGoogle, setLoading} = useAuth()
+
+
+        const handleGoogleLogin = async () => {
+                try {
+                        setLoading(true)
+                        const user = await signInWithGoogle()
+                        console.log(user, 'in google login in login page')
+
+                        if(user){
+                                Swal.fire({
+                                        title: "Login successful!",
+                                        icon: "success",
+                                        draggable: true
+                                      });
+                        }
+                        
+                } catch (error) {
+                        console.error('error in google login', error)
+                        Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "Something went wrong!",
+                                footer: '<a href="#">Why do I have this issue?</a>'
+                              });
+                        
+                }finally{
+                        setLoading(false)
+
+                }
+                
+        }
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -26,6 +61,9 @@ const Login = () => {
               <button className="btn btn-neutral mt-4">Login</button>
             </fieldset>
           </div>
+        </div>
+        <div>
+                <button onClick={handleGoogleLogin} className="btn btn-primary">Google</button>
         </div>
       </div>
     </div>
