@@ -1,6 +1,6 @@
 import Banner from "../../components/Banner";
 import CategoryTabs from "../../components/CategoryTabs";
-import FocusInput from "../../components/FocusInput";
+
 
 
 const Home = () => {
@@ -11,7 +11,7 @@ const Home = () => {
      <div className="my-10">
      <CategoryTabs></CategoryTabs>
      </div>
-     <FocusInput></FocusInput>
+    
 
 
      

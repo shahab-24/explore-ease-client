@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-
-import { motion } from "framer-motion";
+import {motion}  from "framer-motion";
 
 import { FaSignOutAlt, FaTachometerAlt, FaBullhorn } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -8,7 +7,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext); // user info and logout function from your context
+  const { user, logOut } = useContext(AuthContext); 
 
   const handleLogout = () => {
     Swal.fire({
@@ -30,26 +29,74 @@ const Navbar = () => {
     });
   };
 
-  const navLinks = (
-    <>
-      <li><NavLink to="/">Home</NavLink></li>
-      <li><NavLink to="/community">Community</NavLink></li>
-      <li><NavLink to="/about">About Us</NavLink></li>
-      <li><NavLink to="/trips">Trips</NavLink></li>
-      {!user && (
-        <>
-          {/* <li><NavLink to="/login">Login</NavLink></li> */}
-          <li><NavLink to="/register">Register</NavLink></li>
-        </>
-      )}
-    </>
-  );
+
+
+const navLinks = (
+  <>
+    {[
+      { path: "/", label: "Home" },
+      { path: "/community", label: "Community" },
+      { path: "/about", label: "About Us" },
+      { path: "/trips", label: "Trips" },
+    ].map(({ path, label }) => (
+      <li key={path} className="relative">
+        <NavLink
+          to={path}
+          className={({ isActive }) =>
+            isActive
+              ? "text-fuchsia-500 font-bold"
+              : "text-white hover:text-fuchsia-400 font-semibold transition-colors duration-300"
+          }
+        >
+          {({ isActive }) => (
+            <div className="flex flex-col items-center">
+              <span>{label}</span>
+              {isActive && (
+                <motion.div
+                  layoutId="underline"
+                  className="h-[1px] w-10 bg-fuchsia-500 rounded-full"
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                />
+              )}
+            </div>
+          )}
+        </NavLink>
+      </li>
+    ))}
+
+    {!user && (
+      <li className="relative">
+        <NavLink
+          to="/register"
+          className={({ isActive }) =>
+            isActive
+              ? "text-fuchsia-500 font-bold"
+              : "text-white hover:text-green-400 font-semibold transition-colors duration-300"
+          }
+        >
+          {({ isActive }) => (
+            <div className="flex flex-col items-center">
+              <span>Register</span>
+              {isActive && (
+                <motion.div
+                  layoutId="underline"
+                  className="rounded-full h-[1px] w-10 bg-fuchsia-500 "
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                />
+              )}
+            </div>
+          )}
+        </NavLink>
+      </li>
+    )}
+  </>
+);
 
   return (
     <motion.div 
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6, type: "spring" }}
+      transition={{ duration: 0.8, type: "pulse" }}
       className="navbar bg-green-400 shadow-md fixed top-0 left-0 z-50"
     >
       {/* Navbar Start */}
@@ -132,7 +179,7 @@ const Navbar = () => {
             </ul>
           </div>
         ) : (
-          <NavLink to="/login" className="btn hidden btn-ghost  btn-outline shadow md:flex">Login</NavLink>
+          <NavLink to="/login" className="btn hidden btn-ghost  hover:text-fuchsia-500 hover:bg-transparent hover:border-fuchsia-500 text-xl btn-outline shadow md:flex">Login</NavLink>
         )}
       </div>
     </motion.div>
