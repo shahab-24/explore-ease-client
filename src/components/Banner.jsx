@@ -10,7 +10,7 @@ const Banner = () => {
   }, []);
         return (
                 <div>
-                 <div className="w-full mx-auto mt-18 md:mt-22">
+                 <div className="w-full mx-auto mt-16 md:mt-16">
         <div className="carousel w-full">
           {places.map((place, index) => (
             <div
