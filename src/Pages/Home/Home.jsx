@@ -1,6 +1,7 @@
 import Banner from "../../components/Banner";
 import CategoryTabs from "../../components/CategoryTabs";
 import OverviewSection from "./OverviewSection";
+import TourismSection from "./TourismSection";
 
 
 
@@ -14,6 +15,9 @@ const Home = () => {
      </div>
      <div className="my-10">
      <OverviewSection></OverviewSection>
+     </div>
+     <div className="my-10">
+     <TourismSection></TourismSection>
      </div>
     
 

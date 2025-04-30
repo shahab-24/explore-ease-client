@@ -6,7 +6,7 @@ const OverviewSection = () => {
     <section className="py-16 px-4 bg-base-100">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10">
         
-        {/* Left: Text content */}
+        
         <div className="space-y-4">
           <h2 className="text-3xl md:text-4xl font-bold text-green-700 leading-snug">
             Discover Bangladesh <br /> with ExploreEase
@@ -21,14 +21,14 @@ const OverviewSection = () => {
             <li>Join a growing travel community</li>
           </ul>
           <p className="text-gray-500 italic text-sm md:text-base">
-            Let ExploreEase turn your next trip into a lifelong memory 🌿
+            Let ExploreEase turn your next trip into a lifelong memory 
           </p>
         </div>
 
-        {/* Right: Video player */}
+        
         <div className="w-full h-[300px] md:h-[400px] aspect-w-16 aspect-h-9">
           <ReactPlayer
-            url="https://youtu.be/Z44fFqBQQtg?si=QWB5DkZGNMgcJNGQ" // Replace with your tourism video
+            url="https://youtu.be/Z44fFqBQQtg?si=QWB5DkZGNMgcJNGQ" 
             width="100%"
             height="100%"
             controls={true}
