@@ -4,10 +4,11 @@ import {motion}  from "framer-motion";
 import { FaSignOutAlt, FaTachometerAlt, FaBullhorn } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Providers/AuthProvider";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext); 
+  const navigate = useNavigate()
 
   const handleLogout = () => {
     Swal.fire({
@@ -23,6 +24,7 @@ const Navbar = () => {
         logOut()
           .then(() => {
             Swal.fire("Logged Out!", "You have been logged out.", "success");
+            navigate('/')
           })
           .catch(error => console.error(error));
       }

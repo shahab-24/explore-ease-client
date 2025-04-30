@@ -14,7 +14,7 @@ import axios from "axios";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
@@ -61,11 +61,11 @@ const AuthProvider = ({ children }) => {
         try {
                 if(currentUser?.email){
                         setUser(currentUser)
-                        await axios.post(`${import.meta.env.VITE_API_URL}/users`, {
-                                name: currentUser?.displayName,
-                                email:currentUser?.email,
-                                image: currentUser?.photoURL
-                        });
+                        // await axios.post(`${import.meta.env.VITE_API_URL}/users`, {
+                        //         name: currentUser?.displayName,
+                        //         email:currentUser?.email,
+                        //         image: currentUser?.photoURL
+                        // });
 
                         await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {
                                 email: currentUser?.email},
