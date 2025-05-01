@@ -3,23 +3,24 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import axios from "axios";
 import "react-tabs/style/react-tabs.css";
 import { Link } from "react-router-dom";
+import Title from "../../components/shared/Title";
 
 const TourismSection = () => {
   const [packages, setPackages] = useState([]);
   const [guides, setGuides] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/package`)
+    axios.get(`${import.meta.env.VITE_API_URL}/package`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setPackages(res.data);
       })
       .catch((error) => console.log(error.message));
 
 
-    axios.get(`${import.meta.env.VITE_API_URL}/tourGuides`).then((res) => {
-      console.log(res.data?.data);
+    axios.get(`${import.meta.env.VITE_API_URL}/tourGuides`)
+    .then((res) => {
+//       console.log(res.data?.data);
       setGuides(res.data);
     });
   }, []);
@@ -28,8 +29,9 @@ const TourismSection = () => {
   return (
     <section className="py-16 px-4">
       <h2 className="text-3xl font-bold text-center mb-8 text-green-700">
-        Tourism & Travel Guide
+        
       </h2>
+      <Title title={"Tourism & Travel Guide"} subtitle={"Choose Your Packages & Tourmate"}></Title>
       <Tabs>
         <TabList>
           <Tab>Our Packages</Tab>

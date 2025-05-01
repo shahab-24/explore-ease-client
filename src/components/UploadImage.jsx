@@ -11,8 +11,8 @@ const UploadImage = ({ onImageUploaded }) => {
 
     try {
       setUploading(true);
-      setPreviewUrl(URL.createObjectURL(file)); // show preview
-
+      setPreviewUrl(URL.createObjectURL(file)); 
+      
       const formData = new FormData();
       formData.append("file", file);
       formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_PRESET);
@@ -22,8 +22,9 @@ const UploadImage = ({ onImageUploaded }) => {
         formData
       );
 
-      const imageUrl = res.data.secure_url;
-      onImageUploaded(imageUrl); // pass uploaded image url to parent
+      const imageUrl = res.data?.secure_url;
+      onImageUploaded(imageUrl); //sends image to parent as imageUrl 
+
     } catch (error) {
       console.error("Image upload failed", error);
     } finally {

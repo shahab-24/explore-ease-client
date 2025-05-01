@@ -11,7 +11,7 @@ import { useState } from "react";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import {  updateProfile } from "firebase/auth";
-import { auth, AuthContext } from "../../Providers/AuthProvider";
+// import { auth, AuthContext } from "../../Providers/AuthProvider";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -140,7 +140,7 @@ const Register = () => {
                 <button
                   type="button"
                   onClick={handleShowPassword}
-                  className="absolute inset-y-0 right-9 top-5 flex items-center text-gray-600"
+                  className="absolute inset-y-0 right-9 top-5 flex items-center text-green-600"
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
