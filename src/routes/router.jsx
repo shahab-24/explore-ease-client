@@ -4,6 +4,7 @@ import MainLayout from "../Layouts/MainLayout";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import StoriesPage from "../Pages/StoriesPage/StoriesPage";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
       {
         path: "register",
         element: <Register></Register>,
+      },
+      {
+        path: "all-stories",
+        element: <StoriesPage></StoriesPage>,
       },
     ],
   },
