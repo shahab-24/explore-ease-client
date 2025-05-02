@@ -37,7 +37,7 @@ const navLinks = (
   <>
     {[
       { path: "/", label: "Home" },
-      { path: "/community", label: "Community" },
+      { path: "/all-stories", label: "Community" },
       { path: "/about", label: "About Us" },
       { path: "/trips", label: "Trips" },
     ].map(({ path, label }) => (

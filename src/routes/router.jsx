@@ -9,6 +9,7 @@ import PackageDetails from "../Pages/PackageDetails/PackageDetails";
 import TourGuideProfilePage from "../Pages/TourGuideProfilePage/TourGuideProfilePage";
 import MyBookingsPage from "../Pages/MyBookings/MyBookingsPage";
 import StoryDetailsPage from "../Pages/StoryDetailsPage/StoryDetailsPage";
+import AboutMePage from "../Pages/About/AboutMePage";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
       {
         path: "stories/:id",
         element: <StoryDetailsPage></StoryDetailsPage>,
+      },
+      {
+        path: "about",
+        element: <AboutMePage></AboutMePage>,
       },
     ],
   },
