@@ -7,6 +7,7 @@ import Register from "../Pages/Register/Register";
 import StoriesPage from "../Pages/StoriesPage/StoriesPage";
 import PackageDetails from "../Pages/PackageDetails/PackageDetails";
 import TourGuideProfilePage from "../Pages/TourGuideProfilePage/TourGuideProfilePage";
+import MyBookingsPage from "../Pages/MyBookings/MyBookingsPage";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
       {
         path: "tourGuidesProfile/:id",
         element: <TourGuideProfilePage></TourGuideProfilePage>,
+      },
+      {
+        path: "my-bookings/:id",
+        element: <MyBookingsPage></MyBookingsPage>,
       },
     ],
   },

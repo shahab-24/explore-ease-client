@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Title from "../../components/shared/Title";
 
 const TourismSection = () => {
+        // const {id} = useParams()
   const [packages, setPackages] = useState([]);
   const [guides, setGuides] = useState([]);
 
@@ -23,7 +24,15 @@ const TourismSection = () => {
 //       console.log(res.data?.data);
       setGuides(res.data);
     });
-  }, []);
+
+    axios.get(`${import.meta.env.VITE_API_URL}/tourGuidesProfile/${guides._id}`)
+    .then((res) => {
+//       console.log(res.data?.data);
+      setGuides(res.data);
+    });
+
+
+  }, [guides._id]);
 
   
   return (
@@ -69,20 +78,20 @@ const TourismSection = () => {
         {/* Tour Guides Tab */}
         <TabPanel>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-            {Array.isArray(guides) && guides.map((guide, idx) => (
-              <div key={idx} className="card bg-base-100 shadow-lg">
+            {Array.isArray(guides) && guides.map((guide) => (
+              <div key={guide._id} className="card bg-base-100 shadow-lg">
                 <figure>
                   <img
-                    src={guide.photo}
-                    alt={guide.name}
+                    src={guide?.photo}
+                    alt={guide?.name}
                     className="h-48 w-full object-cover"
                   />
                 </figure>
                 <div className="card-body">
-                  <h3 className="text-xl font-bold">{guide.name}</h3>
-                  <p className="text-gray-600">{guide.specialty}</p>
+                  <h3 className="text-xl font-bold">{guide?.name}</h3>
+                  <p className="text-gray-600">{guide?.specialty}</p>
                   <Link
-                    to={`/guides/${idx}`}
+                    to={`/tourGuidesProfile/${guide._id}`}
                     className="btn btn-outline btn-sm mt-2"
                   >
                     View Details

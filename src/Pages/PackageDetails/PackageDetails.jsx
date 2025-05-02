@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import Swal from "sweetalert2";
@@ -14,8 +14,9 @@ const PackageDetails = () => {
   const [guides, setGuides] = useState([]);
   const [tourDate, setTourDate] = useState(null);
   const [selectedGuide, setSelectedGuide] = useState("");
+  const navigate = useNavigate()
 
-  console.log("package id", id);
+  console.log("package pkg", pkg);
 
   useEffect(() => {
     axios
@@ -26,12 +27,13 @@ const PackageDetails = () => {
       .then((res) => setGuides(res.data));
   }, [id]);
 
+  
   const handleBooking = async () => {
     if (!user)
       return Swal.fire("Login Required", "Please log in to book", "warning");
 
     const bookingInfo = {
-      packageId: id,
+      packageId: pkg._id,
       packageName: pkg.name,
       touristName: user.displayName,
       touristEmail: user.email,
@@ -39,23 +41,26 @@ const PackageDetails = () => {
       price: pkg.price,
       tourDate,
       guideName: selectedGuide,
-      status: "pending",
+    
     };
 
     try {
       await axios.post("http://localhost:8000/bookings", bookingInfo);
       Swal.fire({
-        title: "Confirm your Booking",
+        title: "Confirmed your Booking",
         text: "Booking submitted! Check My Bookings.",
         icon: "success",
-        confirmButtonText: `<a href="/my-bookings" class="text-white">Go to My Bookings</a>`,
+        confirmButtonText: "Go to My Bookings",
         showConfirmButton: true,
       });
+      navigate(`/my-bookings/${id}`)
     } catch (err) {
       console.error(err);
       Swal.fire("Error", "Something went wrong", "error");
     }
   };
+
+
 
   if (!pkg) return <p className="text-center py-20">Loading...</p>;
 
@@ -63,6 +68,7 @@ const PackageDetails = () => {
     <section className="max-w-6xl mx-auto px-4 py-16">
       {/* Gallery */}
       ...
+
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         {pkg.images.map((img, i) => (
           <motion.div
@@ -81,11 +87,15 @@ const PackageDetails = () => {
           </motion.div>
         ))}
       </div>
+
+
       {/* About */}
       <div className="mb-8">
         <h2 className="text-3xl font-bold text-green-700 mb-2">{pkg.name}</h2>
         <p className="text-gray-700">{pkg.description}</p>
       </div>
+
+
       {/* Tour Plan */}
       <div className="mb-8">
         <h3 className="text-2xl font-semibold text-green-600 mb-4">
@@ -102,6 +112,8 @@ const PackageDetails = () => {
           ))}
         </ul>
       </div>
+
+
       {/* Tour Guides with Diamond Shape and Hover */}
       <div className="overflow-x-auto pb-4">
         <div className="flex gap-6 px-2">
@@ -130,6 +142,8 @@ const PackageDetails = () => {
           ))}
         </div>
       </div>
+
+
       {/* Booking Form */}
       <div className="bg-white rounded-lg p-6 shadow-md">
         <h3 className="text-xl font-bold mb-4 text-green-700">
@@ -163,14 +177,15 @@ const PackageDetails = () => {
               className="input input-bordered w-full"
             />
           </div>
-          <div>
+          <div className="w-[150px] h-[100px] border-x-2 border-green-600">
+          <img src={user?.photoURL} alt="profile photo" className="w-32 h-32 rounded-2xl"></img>
             <label className="block">Image URL</label>
-            <input
+            {/* <input
               type="text"
               value={user?.photoURL}
               readOnly
               className="input input-bordered w-full"
-            />
+            /> */}
           </div>
           <div>
             <label className="block">Tour Date</label>
@@ -197,12 +212,15 @@ const PackageDetails = () => {
               ))}
             </select>
           </div>
-          <button
-            onClick={handleBooking}
-            className="btn btn-success w-full mt-4"
-          >
-            Book Now
-          </button>
+        
+          
+          {user ? (
+  <button onClick={handleBooking} className="btn btn-success w-full mt-4">Book Now</button>
+) : (
+  <Link to="/login">
+    <button>Please Login to Book</button>
+  </Link>
+)}
         </div>
       </div>
     </section>
