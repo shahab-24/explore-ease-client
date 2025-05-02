@@ -18,7 +18,7 @@ const TourismSection = () => {
       .catch((error) => console.log(error.message));
 
 
-    axios.get(`${import.meta.env.VITE_API_URL}/tourGuides`)
+    axios.get(`${import.meta.env.VITE_API_URL}/tourGuides?mode=random`)
     .then((res) => {
 //       console.log(res.data?.data);
       setGuides(res.data);
@@ -41,8 +41,8 @@ const TourismSection = () => {
         {/* Our Packages Tab */}
         <TabPanel>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-            {Array.isArray(packages) && packages?.map((pkg, idx) => (
-              <div key={idx} className="card bg-base-100 shadow-xl">
+            {Array.isArray(packages) && packages?.map((pkg) => (
+              <div key={pkg._id} className="card bg-base-100 shadow-xl">
                 <figure>
                   <img
                     src={pkg?.photo}
@@ -55,7 +55,7 @@ const TourismSection = () => {
                   <p className="text-green-600 font-semibold">{pkg.tourType}</p>
                   <p>৳ {pkg.price}</p>
                   <Link
-                    to={`/packages/${idx}`}
+                    to={`/packages/${pkg._id}`}
                     className="btn btn-primary btn-sm mt-2"
                   >
                     View Details

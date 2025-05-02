@@ -14,7 +14,7 @@ const TouristStorySection = () => {
   useEffect(() => {
     axios.get("http://localhost:8000/stories")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setStories(res.data);
       });
   }, []);
