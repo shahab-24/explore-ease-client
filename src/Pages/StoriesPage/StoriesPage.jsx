@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router";
 
 const StoriesPage = () => {
   const [stories, setStories] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios.get("http://localhost:8000/all-stories").then((res) => setStories(res.data));
@@ -33,6 +35,13 @@ const StoriesPage = () => {
                 <h3 className="text-xl font-bold text-green-700 group-hover:underline">{story.title}</h3>
                 <p className="text-sm text-gray-500">By {story.author} • {new Date(story.date).toDateString()}</p>
                 <p className="text-gray-600 text-sm">{story.story.slice(0, 120)}...</p>
+
+                <button
+  onClick={() => navigate(`/stories/${story._id}`)}
+  className="mt-2 btn btn-xs btn-outline btn-success"
+>
+  Read Full Story
+</button>
               </div>
             </motion.div>
           ))}
