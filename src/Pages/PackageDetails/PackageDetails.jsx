@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import Swal from "sweetalert2";
@@ -106,6 +106,7 @@ const PackageDetails = () => {
       <div className="overflow-x-auto pb-4">
         <div className="flex gap-6 px-2">
           {guides.map((g) => (
+            <Link key={g._id} to={`/tourGuidesProfile/${g._id}`}>
             <motion.div
               key={g._id}
               className="relative transform rotate-45 w-32 h-32 bg-base-200 shadow-md hover:shadow-lg transition duration-300 flex items-center justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary"
@@ -125,6 +126,7 @@ const PackageDetails = () => {
                 </p>
               </div>
             </motion.div>
+            </Link>
           ))}
         </div>
       </div>
