@@ -10,6 +10,7 @@ import TourGuideProfilePage from "../Pages/TourGuideProfilePage/TourGuideProfile
 import MyBookingsPage from "../Pages/MyBookings/MyBookingsPage";
 import StoryDetailsPage from "../Pages/StoryDetailsPage/StoryDetailsPage";
 import AboutMePage from "../Pages/About/AboutMePage";
+import AllTripsPage from "../Pages/AllTripsPage/AllTripsPage";
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
       {
         path: "about",
         element: <AboutMePage></AboutMePage>,
+      },
+      {
+        path: "trips",
+        element: <AllTripsPage></AllTripsPage>,
       },
     ],
   },

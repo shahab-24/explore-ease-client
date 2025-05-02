@@ -16,7 +16,7 @@ const PackageDetails = () => {
   const [selectedGuide, setSelectedGuide] = useState("");
   const navigate = useNavigate()
 
-  console.log("package pkg", pkg);
+//   console.log("package pkg", pkg);
 
   useEffect(() => {
     axios
