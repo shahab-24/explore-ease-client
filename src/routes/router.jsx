@@ -12,6 +12,7 @@ import StoryDetailsPage from "../Pages/StoryDetailsPage/StoryDetailsPage";
 import AboutMePage from "../Pages/About/AboutMePage";
 import AllTripsPage from "../Pages/AllTripsPage/AllTripsPage";
 import TripsDetailsPage from "../Pages/TripDetails/TripDetailsPage";
+import DashboardLayout from "../Layouts/DashboardLayout";
 
 export const router = createBrowserRouter([
   {
@@ -65,4 +66,20 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
+//   dashboard Layout
+{
+        
+                
+                        path: '/dashboardLayout',
+                        element: <DashboardLayout></DashboardLayout>, 
+                        // children: [
+                        //         {
+                        //                 path: '',
+                        //                 element:
+                        //         }
+                        // ]
+                
+        
+}
 ]);
