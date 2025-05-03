@@ -13,6 +13,7 @@ import AboutMePage from "../Pages/About/AboutMePage";
 import AllTripsPage from "../Pages/AllTripsPage/AllTripsPage";
 import TripsDetailsPage from "../Pages/TripDetails/TripDetailsPage";
 import DashboardLayout from "../Layouts/DashboardLayout";
+import ManageProfile from "../DashboardPages/ManageProfile";
 
 export const router = createBrowserRouter([
   {
@@ -71,14 +72,14 @@ export const router = createBrowserRouter([
 {
         
                 
-                        path: '/dashboardLayout',
+                        path: '/dashboard',
                         element: <DashboardLayout></DashboardLayout>, 
-                        // children: [
-                        //         {
-                        //                 path: '',
-                        //                 element:
-                        //         }
-                        // ]
+                        children: [
+                                {
+                                        path: 'profile',
+                                        element:<ManageProfile></ManageProfile>
+                                }
+                        ]
                 
         
 }
