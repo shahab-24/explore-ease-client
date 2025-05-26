@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
+interface Place {
+        id?: number,
+        title: string,
+        description: string,
+        image_url: string
+}
+
 const Banner = () => {
-        const [places, setPlaces] = useState([]);
+        const [places, setPlaces] = useState<Place[]>([]);
 
   useEffect(() => {
     fetch("places.json")
       .then((res) => res.json())
-      .then((data) => setPlaces(data));
+      .then((data: Place[]) => setPlaces(data))
+      .catch((error)=> console.log(error, 'failed to fetch places'))
   }, []);
         return (
                 <div>
@@ -16,7 +24,7 @@ const Banner = () => {
             <div
               id={`slide${index}`}
               className="carousel-item relative w-full"
-              key={index}
+              key={place.id ?? index}
             >
               <img
                 src={place.image_url}
