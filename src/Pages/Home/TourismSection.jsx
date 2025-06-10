@@ -65,7 +65,7 @@ const TourismSection = () => {
                   <p>৳ {pkg.price}</p>
                   <Link
                     to={`/packages/${pkg._id}`}
-                    className="btn btn-primary btn-sm mt-2"
+                    className="btn btn-success btn-sm mt-2"
                   >
                     View Details
                   </Link>
@@ -92,7 +92,7 @@ const TourismSection = () => {
                   <p className="text-gray-600">{guide?.specialty}</p>
                   <Link
                     to={`/tourGuidesProfile/${guide._id}`}
-                    className="btn btn-outline btn-sm mt-2"
+                    className="btn btn-success btn-sm mt-2"
                   >
                     View Details
                   </Link>

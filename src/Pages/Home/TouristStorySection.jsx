@@ -19,6 +19,8 @@ const TouristStorySection = () => {
       });
   }, []);
 
+//   console.log(stories, 'touristStorySection')
+
   const handleShareClick = (storyUrl) => {
     if (!user) {
       navigate("/login");

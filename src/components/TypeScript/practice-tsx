@@ -1,0 +1,45 @@
+
+type Car = {
+  brand: string;
+  model: string;
+  year: number;
+};
+
+const myCar: Car = {
+  brand: "Toyota",
+  model: "Corolla",
+  year: 2020
+};
+
+
+
+
+class Person {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  greet() {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+}
+
+class Student extends Person {
+        personId: number;
+
+        constructor( name: string, personId: number){
+                super(name);
+                this.personId = personId;
+
+        }
+
+        greet() {
+                console.log(`Hello, my name is ${this.name} and my Id is ${this.personId}`);
+              }
+
+}
+
+const person1 = new Student("Shahab", 123);
+person1.greet()

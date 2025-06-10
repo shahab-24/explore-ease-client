@@ -10,7 +10,7 @@ const TourGuideProfilePage = () => {
 
   useEffect(() => {
     axios.get(`http://localhost:8000/tourGuidesProfile/${id}`).then((res) => {
-      console.log(res.data);
+//       console.log(res.data);
       setGuideProfile(res.data);
     });
   }, [id]);
