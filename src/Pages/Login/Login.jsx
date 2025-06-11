@@ -20,7 +20,7 @@ const Login = () => {
 
     try {
         setLoading(true)
-        const user = await signIn(email, passwrod)
+        const user = await signIn(email, password)
         if(user){
             Swal.fire('login successful', '', 'success')
             navigate('/')

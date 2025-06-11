@@ -10,14 +10,15 @@ import {
 } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import axios from "axios";
+import  AuthContextType  from "@/components/hooks/useAuth";
 
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const AuthContext = createContext(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
 export const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
-const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children  }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
@@ -85,7 +86,7 @@ const AuthProvider = ({ children }) => {
         }finally{
                 setLoading(false)
         }
-      console.log("hello from state", currentUser?.email);
+//       console.log("hello from state", currentUser?.email);
 
     });
     return unSubscribe;

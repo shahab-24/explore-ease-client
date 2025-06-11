@@ -14,6 +14,8 @@ import AllTripsPage from "../Pages/AllTripsPage/AllTripsPage";
 import TripsDetailsPage from "../Pages/TripDetails/TripDetailsPage";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import ManageProfile from "../DashboardPages/ManageProfile";
+import WelcomeNote from "../components/WelcomeNote";
+import JoinAsTourGuide from './../DashboardPages/JoinAsTourGuide';
 
 export const router = createBrowserRouter([
   {
@@ -78,6 +80,14 @@ export const router = createBrowserRouter([
                                 {
                                         path: 'profile',
                                         element:<ManageProfile></ManageProfile>
+                                },
+                                {
+                                        path: '',
+                                        element: <WelcomeNote></WelcomeNote>
+                                },
+                                {
+                                        path: 'become-guide',
+                                        element: <JoinAsTourGuide></JoinAsTourGuide>
                                 }
                         ]
                 

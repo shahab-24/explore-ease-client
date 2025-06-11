@@ -3,8 +3,9 @@ import {motion}  from "framer-motion";
 
 import { FaSignOutAlt, FaTachometerAlt, FaBullhorn } from "react-icons/fa";
 import Swal from "sweetalert2";
-import { AuthContext } from "../../Providers/AuthProvider";
+
 import { Link, NavLink, useNavigate } from "react-router";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext); 

@@ -13,6 +13,7 @@ import { User } from "@/Types/UserTypes";
 
 const ManageProfile = () => {
   const { user } = useAuth();
+  const email = user?.email
   const [editing, setEditing] = useState(false);
   const navigate = useNavigate();
 
@@ -26,8 +27,9 @@ const ManageProfile = () => {
 //   });
 
 const {data: profile, refetch} = useQuery<User>({
-        queryKey: ['profile', user?.email],
-        queryFn: () => getUserProfile(user?.email)
+        queryKey: ['profile',email],
+        enabled: !!email,
+        queryFn: () => getUserProfile(email)
 })
 
 //   const updateUserMutation = useMutation({

@@ -3,8 +3,8 @@ import axios from "axios";
 import { FacebookShareButton, FacebookIcon } from "react-share";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import useAuth from "../../components/hooks/useAuth";
 import Title from "../../components/shared/Title";
+import useAuth from "../../components/hooks/useAuth";
 
 const TouristStorySection = () => {
   const [stories, setStories] = useState([]);

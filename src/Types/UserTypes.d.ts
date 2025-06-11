@@ -5,6 +5,7 @@ export interface User {
         photo: string,
         phone?: string,
         address?: string,
+        displayName?: string,
         role: "tourist" | "admin" | "guide"
 
 

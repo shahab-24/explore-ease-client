@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
-import UploadImage from "../../components/UploadImage"; // your reusable component
+import UploadImage from "../../components/UploadImage"; 
 import Lottie from "lottie-react";
 import registerData from "../../assets/register.json";
 import useAuth from "../../components/hooks/useAuth";
@@ -11,7 +11,7 @@ import { useState } from "react";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import {  updateProfile } from "firebase/auth";
-// import { auth, AuthContext } from "../../Providers/AuthProvider";
+
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,7 +28,7 @@ const Register = () => {
       .required("Password is required"),
   });
 
-  // ✅ React Hook Form
+  
   const {
     register,
     handleSubmit,
@@ -38,10 +38,10 @@ const Register = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  // ✅ Submit form
+  
   const onSubmit = async (data) => {
-    console.log("Form data submitted:", data);
-    console.log("Uploaded image URL:", uploadedImageUrl);
+//     console.log("Form data submitted:", data);
+//     console.log("Uploaded image URL:", uploadedImageUrl);
 
     if (!uploadedImageUrl) {
       return Swal.fire("Error", "Please upload a profile image", "error");
@@ -50,7 +50,7 @@ const Register = () => {
     try {
       setLoading(true);
 
-      // Step 1: Create user with Firebase
+      
       const userCredential = await createUser(data?.email, data?.password);
       const user = userCredential?.user;
 
@@ -60,7 +60,7 @@ const Register = () => {
         
       })
 
-      // Step 2: Save user info to backend MongoDB
+     
       await axios.post(`${import.meta.env.VITE_API_URL}/users`, {
         name: data?.name,
         email: data?.email,

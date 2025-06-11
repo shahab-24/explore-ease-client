@@ -1,6 +1,5 @@
 import useAxiosPublic from "@/components/hooks/useAxiosPublic"
 import { User } from "../UserTypes"
-import axios from 'axios'
 const axiosPublic = useAxiosPublic()
 
 export const getUserProfile = async(email: string): Promise<User> => {

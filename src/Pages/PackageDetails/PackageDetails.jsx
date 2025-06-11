@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import Swal from "sweetalert2";
 import "react-datepicker/dist/react-datepicker.css";
-import useAuth from "../../components/hooks/useAuth";
+
 import axios from "axios";
 import { motion } from "framer-motion";
+import useAuth from "../../components/hooks/useAuth";
 
 const PackageDetails = () => {
   const { id } = useParams();
