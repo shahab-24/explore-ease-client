@@ -5,13 +5,18 @@ import "react-tabs/style/react-tabs.css";
 import { Link } from "react-router-dom";
 import Title from "../../components/shared/Title";
 
+import 'swiper/css';
+import 'swiper/css/pagination';
+import PackageGallery from '../../components/PackageGallery';
+import TourGuideCard from "../../components/TourGuideCard";
+
 const TourismSection = () => {
         // const {id} = useParams()
   const [packages, setPackages] = useState([]);
   const [guides, setGuides] = useState([]);
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/package`)
+    axios.get(`${import.meta.env.VITE_API_URL}/packages`)
       .then((res) => {
         // console.log(res.data);
         setPackages(res.data);
@@ -21,13 +26,13 @@ const TourismSection = () => {
 
     axios.get(`${import.meta.env.VITE_API_URL}/tourGuides?mode=random`)
     .then((res) => {
-//       console.log(res.data?.data);
+      console.log(res.data);
       setGuides(res.data);
     });
 
     axios.get(`${import.meta.env.VITE_API_URL}/tourGuidesProfile/${guides._id}`)
     .then((res) => {
-//       console.log(res.data?.data);
+//       console.log(res.data);
       setGuides(res.data);
     });
 
@@ -49,57 +54,31 @@ const TourismSection = () => {
 
         {/* Our Packages Tab */}
         <TabPanel>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-            {Array.isArray(packages) && packages?.map((pkg) => (
-              <div key={pkg._id} className="card bg-base-100 shadow-xl">
-                <figure>
-                  <img
-                    src={pkg?.photo}
-                    alt={pkg.title}
-                    className="h-48 w-full object-cover"
-                  />
-                </figure>
-                <div className="card-body">
-                  <h3 className="text-xl font-bold">{pkg.title}</h3>
-                  <p className="text-green-600 font-semibold">{pkg.tourType}</p>
-                  <p>৳ {pkg.price}</p>
-                  <Link
-                    to={`/packages/${pkg._id}`}
-                    className="btn btn-success btn-sm mt-2"
-                  >
-                    View Details
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+  {packages.map((pkg) => (
+    <div key={pkg._id} className="card bg-base-100 shadow-xl">
+      <PackageGallery images={pkg.images} isTrending={true} />
+      <div className="card-body">
+        <h3 className="text-xl font-bold">{pkg.name}</h3>
+        <p className="text-green-600 font-semibold">৳ {pkg.price}</p>
+        <Link
+          to={`/packages/${pkg._id}`}
+          className="btn btn-success btn-sm mt-2"
+        >
+          View Details
+        </Link>
+      </div>
+    </div>
+  ))}
+</div>
         </TabPanel>
 
         {/* Tour Guides Tab */}
         <TabPanel>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-            {Array.isArray(guides) && guides.map((guide) => (
-              <div key={guide._id} className="card bg-base-100 shadow-lg">
-                <figure>
-                  <img
-                    src={guide?.photo}
-                    alt={guide?.name}
-                    className="h-48 w-full object-cover"
-                  />
-                </figure>
-                <div className="card-body">
-                  <h3 className="text-xl font-bold">{guide?.name}</h3>
-                  <p className="text-gray-600">{guide?.specialty}</p>
-                  <Link
-                    to={`/tourGuidesProfile/${guide._id}`}
-                    className="btn btn-success btn-sm mt-2"
-                  >
-                    View Details
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
+    {Array.isArray(guides) &&
+      guides.map((guide) => <TourGuideCard key={guide._id} guide={guide} />)}
+  </div>
         </TabPanel>
       </Tabs>
     </section>

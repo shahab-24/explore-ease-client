@@ -5,9 +5,9 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import StoriesPage from "../Pages/StoriesPage/StoriesPage";
-import PackageDetails from "../Pages/PackageDetails/PackageDetails";
+import PackageDetails from "../Pages/PackageDetails/PackageDetails.tsx";
 import TourGuideProfilePage from "../Pages/TourGuideProfilePage/TourGuideProfilePage";
-import MyBookingsPage from "../Pages/MyBookings/MyBookingsPage";
+import MyBookingsPage from "../DashboardPages/MyBookings/MyBookingsPage.tsx";
 import StoryDetailsPage from "../Pages/StoryDetailsPage/StoryDetailsPage";
 import AboutMePage from "../Pages/About/AboutMePage";
 import AllTripsPage from "../Pages/AllTripsPage/AllTripsPage";
@@ -15,7 +15,7 @@ import TripsDetailsPage from "../Pages/TripDetails/TripDetailsPage";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import ManageProfile from "../DashboardPages/ManageProfile";
 import WelcomeNote from "../components/WelcomeNote";
-import JoinAsTourGuide from './../DashboardPages/JoinAsTourGuide';
+import JoinAsTourGuide from "./../DashboardPages/JoinAsTourGuide";
 
 export const router = createBrowserRouter([
   {
@@ -28,9 +28,7 @@ export const router = createBrowserRouter([
         element: <Home></Home>,
       },
 
-      { path: "login",
-         element: <Login></Login>
-         },
+      { path: "login", element: <Login></Login> },
       {
         path: "register",
         element: <Register></Register>,
@@ -47,10 +45,7 @@ export const router = createBrowserRouter([
         path: "tourGuidesProfile/:id",
         element: <TourGuideProfilePage></TourGuideProfilePage>,
       },
-      {
-        path: "my-bookings/:id",
-        element: <MyBookingsPage></MyBookingsPage>,
-      },
+     
       {
         path: "stories/:id",
         element: <StoryDetailsPage></StoryDetailsPage>,
@@ -70,27 +65,28 @@ export const router = createBrowserRouter([
     ],
   },
 
-//   dashboard Layout
-{
-        
-                
-                        path: '/dashboard',
-                        element: <DashboardLayout></DashboardLayout>, 
-                        children: [
-                                {
-                                        path: 'profile',
-                                        element:<ManageProfile></ManageProfile>
-                                },
-                                {
-                                        path: '',
-                                        element: <WelcomeNote></WelcomeNote>
-                                },
-                                {
-                                        path: 'become-guide',
-                                        element: <JoinAsTourGuide></JoinAsTourGuide>
-                                }
-                        ]
-                
-        
-}
+  //   dashboard Layout
+  {
+    path: "/dashboard",
+    element: <DashboardLayout></DashboardLayout>,
+    children: [
+      {
+        path: "profile",
+        element: <ManageProfile></ManageProfile>,
+      },
+      {
+        path: "",
+        element: <WelcomeNote></WelcomeNote>,
+      },
+      {
+        path: "become-guide",
+        element: <JoinAsTourGuide></JoinAsTourGuide>,
+      },
+//       tourist pages===============
+      {
+        path: "bookings",
+        element: <MyBookingsPage></MyBookingsPage>,
+      },
+    ],
+  },
 ]);
