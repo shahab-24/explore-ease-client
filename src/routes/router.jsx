@@ -4,7 +4,7 @@ import MainLayout from "../Layouts/MainLayout";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
-import StoriesPage from "../Pages/StoriesPage/StoriesPage";
+import StoriesPage from "../Pages/StoriesPage/StoriesPage.tsx";
 import PackageDetails from "../Pages/PackageDetails/PackageDetails.tsx";
 import TourGuideProfilePage from "../Pages/TourGuideProfilePage/TourGuideProfilePage";
 import MyBookingsPage from "../DashboardPages/MyBookings/MyBookingsPage.tsx";
@@ -17,6 +17,8 @@ import ManageProfile from "../DashboardPages/ManageProfile";
 import WelcomeNote from "../components/WelcomeNote";
 import JoinAsTourGuide from "./../DashboardPages/JoinAsTourGuide";
 import AddStoryForm from '../DashboardPages/AddStoryForm/AddStoryForm.tsx'
+import ManageStories from './../DashboardPages/ManageStories/ManageStories';
+import EditStoryPage from './../DashboardPages/EditStoryPage/EditStoryPage';
 
 export const router = createBrowserRouter([
   {
@@ -93,7 +95,12 @@ export const router = createBrowserRouter([
         element: <AddStoryForm></AddStoryForm>
       },
       {
-        path: 'manage-stories'
+        path: 'stories-manage',
+        element: <ManageStories></ManageStories>
+      },
+      {
+        path: 'edit-story/:id',
+        element: <EditStoryPage></EditStoryPage>
       }
     ],
   },
