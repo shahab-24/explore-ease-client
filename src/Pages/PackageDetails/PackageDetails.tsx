@@ -14,6 +14,8 @@ import { Package } from "@/Types/Package";
 import { TourGuide } from "@/Types/TourGuide";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import GalleryImage from "@/components/GalleryImage";
+import useAxiosPublic from "@/components/hooks/useAxiosPublic";
+import useAxiosSecure from "@/components/hooks/useAxiosSecure";
 
 const PackageDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -23,6 +25,7 @@ const PackageDetails: React.FC = () => {
   const [tourDate, setTourDate] = useState<Date | null>(null);
   const [selectedGuide, setSelectedGuide] = useState<string>("");
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure()
 
   useEffect(() => {
     if (!id) return;
@@ -156,7 +159,7 @@ const PackageDetails: React.FC = () => {
             };
 
             try {
-              await axios.post(
+              await axiosSecure.post(
                 `${import.meta.env.VITE_API_URL}/bookings`,
                 bookingInfo
               );

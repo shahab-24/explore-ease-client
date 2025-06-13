@@ -12,20 +12,21 @@ const TouristStorySection = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    axios.get("http://localhost:8000/stories")
+    axios.get(`${import.meta.env.VITE_API_URL}/stories/random`)
       .then((res) => {
         // console.log(res.data);
         setStories(res.data);
       });
   }, []);
 
-//   console.log(stories, 'touristStorySection')
+  console.log(stories, 'touristStorySection')
 
   const handleShareClick = (storyUrl) => {
     if (!user) {
       navigate("/login");
     }
   };
+  
 
   return (
     <section className="py-16 px-4 bg-base-100">
@@ -33,7 +34,7 @@ const TouristStorySection = () => {
         <Title title="Traveler Stories" subtitle="Real journeys, real voices from around the world." />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
-  {stories.slice(0, 5).map((story, idx) => (
+  {stories?.slice(0, 5).map((story, idx) => (
     <motion.div
       key={idx}
       initial={{ opacity: 0, y: 30 }}
@@ -61,9 +62,9 @@ const TouristStorySection = () => {
         </div>
         <div className="flex justify-end">
           <FacebookShareButton
-            url={`http://localhost:5173/stories/${idx}`}
+            url={`import.meta.env.VITE_API_URL/stories/${idx}`}
             quote={story.title}
-            onClick={() => handleShareClick(`http://localhost:5173/stories/${idx}`)}
+            onClick={() => handleShareClick(`import.meta.env.VITE_API_URL/stories/${idx}`)}
           >
             <FacebookIcon size={32} round />
           </FacebookShareButton>

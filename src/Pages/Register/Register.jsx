@@ -3,7 +3,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
-import UploadImage from "../../components/UploadImage"; 
+import UploadImage from "../../components/UploadImage"
+
 import Lottie from "lottie-react";
 import registerData from "../../assets/register.json";
 import useAuth from "../../components/hooks/useAuth";

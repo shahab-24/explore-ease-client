@@ -30,16 +30,15 @@ const TourGuideCard: React.FC<TourGuideCardProps> = ({ guide }) => {
         🔥 Trending
       </span>
 
+      {/* Guide Photo */}
       <div className="flex justify-center">
-        {/* Diamond shaped image */}
-        <div className="w-40 h-40 overflow-hidden">
+        <div className="w-32 h-32 md:w-40 md:h-40 overflow-hidden">
           <img
-            src={guide.photo}
+            src={guide.photo || "/default-avatar.png"}
             alt={guide.name}
-            className="w-full h-full object-cover rotate-45 border-4 border-green-500"
+            className="w-full h-full object-cover border-4 border-green-500"
             style={{
-              clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
-              transform: "rotate(45deg)",
+              clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"
             }}
           />
         </div>
@@ -48,6 +47,10 @@ const TourGuideCard: React.FC<TourGuideCardProps> = ({ guide }) => {
       <div className="text-center mt-4">
         <h3 className="text-xl font-bold">{guide.name}</h3>
         <p className="text-gray-500 text-sm">{guide.specialty}</p>
+        {/* Optional: Short bio */}
+        {/* <p className="text-sm text-gray-600 mt-2">
+          {guide.bio.slice(0, 100)}...
+        </p> */}
         <Link
           to={`/tourGuidesProfile/${guide._id}`}
           className="btn btn-outline btn-success btn-sm mt-3"

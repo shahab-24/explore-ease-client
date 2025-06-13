@@ -28,8 +28,8 @@ const DashboardLayout = () => {
     { to: '/', label: 'Home', icon: <HomeIcon className="w-5 h-5" /> },
     { to: '/dashboard/profile', label: 'Manage Profile', icon: <User className="w-5 h-5" /> },
     { to: '/dashboard/bookings', label: 'My Bookings', icon: <Calendar className="w-5 h-5" /> },
-    { to: '/dashboard/stories/manage', label: 'Manage Stories', icon: <BookOpenText className="w-5 h-5" /> },
-    { to: '/dashboard/stories/add', label: 'Add Stories', icon: <PlusCircle className="w-5 h-5" /> },
+    { to: '/dashboard/stories-manage', label: 'Manage Stories', icon: <BookOpenText className="w-5 h-5" /> },
+    { to: '/dashboard/stories-add', label: 'Add Stories', icon: <PlusCircle className="w-5 h-5" /> },
     { to: '/dashboard/become-guide', label: 'Join as Tour Guide', icon: <Mountain className="w-5 h-5" /> }
   ];
 

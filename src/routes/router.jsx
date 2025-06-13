@@ -16,6 +16,7 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import ManageProfile from "../DashboardPages/ManageProfile";
 import WelcomeNote from "../components/WelcomeNote";
 import JoinAsTourGuide from "./../DashboardPages/JoinAsTourGuide";
+import AddStoryForm from '../DashboardPages/AddStoryForm/AddStoryForm.tsx'
 
 export const router = createBrowserRouter([
   {
@@ -87,6 +88,13 @@ export const router = createBrowserRouter([
         path: "bookings",
         element: <MyBookingsPage></MyBookingsPage>,
       },
+      {
+        path: 'stories-add',
+        element: <AddStoryForm></AddStoryForm>
+      },
+      {
+        path: 'manage-stories'
+      }
     ],
   },
 ]);
