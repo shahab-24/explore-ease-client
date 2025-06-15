@@ -41,7 +41,7 @@ const AddPackageForm = () => {
 
   const onSubmit: SubmitHandler<PackageFormData> = async (data) => {
     try {
-      await axiosSecure.post("/admin/packages", data);
+      await axiosSecure.post("/admin/add-package", data);
       Swal.fire("Success", "Package added successfully", "success");
       reset();
       setUploadedImages([]);
