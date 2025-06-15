@@ -7,20 +7,27 @@ import Title from "../../components/shared/Title";
 import PackageGallery from "../../components/PackageGallery";
 import TourGuideCard from "../../components/TourguideCard";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
+import useAxiosSecure from "@/components/hooks/useAxiosSecure";
 
-// Fetch packages
+
+
+const TourismSection = () => {
+        const axiosSecure = useAxiosSecure()
+
+
+        // Fetch packages
 const fetchPackages = async () => {
-  const res = await axios.get(`${import.meta.env.VITE_API_URL}/packages`);
+  const res = await axiosSecure.get('/packages');
   return res.data;
 };
 
 // Fetch random tour guides
 const fetchRandomGuides = async () => {
-  const res = await axios.get(`${import.meta.env.VITE_API_URL}/tourGuides?mode=random`);
+  const res = await axiosSecure.get('/tourGuides?mode=random');
   return res.data;
 };
 
-const TourismSection = () => {
+
   const { data: packages = [], isLoading: loadingPackages } = useQuery({
     queryKey: ["packages"],
     queryFn: fetchPackages,

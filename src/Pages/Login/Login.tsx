@@ -1,37 +1,37 @@
-import React, { useState } from "react";
+import { useState, FormEvent } from "react";
 import Lottie from "lottie-react";
 import loginData from "../../assets/login.json";
 
-import useAuth from "../../components/hooks/useAuth";
 import Swal from "sweetalert2";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
+import { UserCredential } from "firebase/auth";
+import useAuth from "@/components/hooks/useAuth";
 
 const Login = () => {
   const { signInWithGoogle, setLoading, signIn } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate()
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!email || !password) {
       return Swal.fire("Error", "Please fill all fields!", "error");
     }
 
     try {
-        setLoading(true)
-        const user = await signIn(email, password)
-        if(user){
-            Swal.fire('login successful', '', 'success')
-            navigate('/')
-        }
-        
-    } catch (error) {
-        console.log(error)
-        Swal.fire(error.message)
-        
-    }finally{
-        setLoading(false)
+      setLoading(true);
+      const result: UserCredential = await signIn(email, password);
+      if (result?.user) {
+        Swal.fire("Login successful", "", "success");
+        navigate("/");
+      }
+    } catch (error: any) {
+      console.log(error);
+      Swal.fire("Error", error.message, "error");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,17 +39,17 @@ const Login = () => {
     try {
       setLoading(true);
       const user = await signInWithGoogle();
-      console.log(user, "in google login in login page");
+      console.log(user, "in google login");
 
       if (user) {
         Swal.fire({
           title: "Login successful!",
           icon: "success",
-          draggable: true,
         });
+        navigate("/");
       }
-    } catch (error) {
-      console.error("error in google login", error);
+    } catch (error: any) {
+      console.error("Google login error", error);
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -60,6 +60,7 @@ const Login = () => {
       setLoading(false);
     }
   };
+
   return (
     <div className="hero min-h-screen bg-base-200 mt-16">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -103,7 +104,9 @@ const Login = () => {
             </div>
 
             <div className="form-control mt-6">
-              <button type='button' className="btn btn-outline bg-transparent btn-block">Login</button>
+              <button type="submit" className="btn btn-outline bg-transparent btn-block">
+                Login
+              </button>
             </div>
 
             <div className="divider">OR</div>

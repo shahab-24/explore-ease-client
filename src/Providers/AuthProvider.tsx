@@ -1,5 +1,6 @@
-import { createContext, useEffect, useState } from "react";
-import { app } from "../firebase/firebase.config";
+// Providers/AuthProvider.tsx
+import { createContext, useEffect, useState, ReactNode } from "react";
+// import { app } from "../firebase/firebase.config";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -7,97 +8,82 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  User as FirebaseUser,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import axios from "axios";
-import  AuthContextType  from "@/components/hooks/useAuth";
+import { AuthContextType } from "@/Types/auth";
+import { app } from "@/firebase/firebase.config";
 
-
-// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext<AuthContextType | null>(null);
 export const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
-const AuthProvider = ({ children  }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [err, setErr] = useState("");
+interface AuthProviderProps {
+  children: ReactNode;
+}
 
-  const createUser = (email, password) => {
+const AuthProvider = ({ children }: AuthProviderProps) => {
+  const [user, setUser] = useState<FirebaseUser | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState<string>("");
+
+  const createUser = (email: string, password: string) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const signIn = (email, password) => {
+  const signIn = (email: string, password: string) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const signInWithGoogle = async () => {
+  const signInWithGoogle = async (): Promise<FirebaseUser | undefined> => {
     setLoading(true);
-
     try {
-        const result = await   signInWithPopup(auth, googleProvider)
-        
-        return result?.user;
-    } catch (error) {
-        setErr(error.message);
-    console.error("Google Sign-In Error:", error);
-        
-    }finally{
-        setLoading(false);
+      const result = await signInWithPopup(auth, googleProvider);
+      return result.user;
+    } catch (error: any) {
+      setErr(error.message);
+      console.error("Google Sign-In Error:", error);
+    } finally {
+      setLoading(false);
     }
-//     signInWithPopup(auth, googleProvider)
-//       .then((result) => {
-//         setUser(result.user);
-//       })
-//       .catch((error) => {
-//         console.log(error.message);
-//       });
   };
 
   useEffect(() => {
-        setLoading(true)
+    setLoading(true);
     const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
-        try {
-                if(currentUser?.email){
-                        setUser(currentUser)
-                        // await axios.post(`${import.meta.env.VITE_API_URL}/users`, {
-                        //         name: currentUser?.displayName,
-                        //         email:currentUser?.email,
-                        //         image: currentUser?.photoURL
-                        // });
+      try {
+        if (currentUser?.email) {
+          setUser(currentUser);
 
-                        await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {
-                                email: currentUser?.email},
-                                {
-                                withCredentials: true
-                        })
-                } else{
-                        setUser(null)
-                        await axios.get(`${import.meta.env.VITE_API_URL}/jwt/logout`, {
-                                withCredentials: true
-                        })
-                }
-                
-        } catch (error) {
-                console.error('logout failed', error)
-                
-        }finally{
-                setLoading(false)
+          await axios.post(
+            `${import.meta.env.VITE_API_URL}/jwt`,
+            { email: currentUser.email },
+            { withCredentials: true }
+          );
+        } else {
+          setUser(null);
+          await axios.get(`${import.meta.env.VITE_API_URL}/jwt/logout`, {
+            withCredentials: true,
+          });
         }
-//       console.log("hello from state", currentUser?.email);
-
+      } catch (error) {
+        console.error("JWT logout failed", error);
+      } finally {
+        setLoading(false);
+      }
     });
-    return unSubscribe;
-  }, []);
 
+    return () => unSubscribe();
+  }, []);
 
   const logOut = async () => {
     await signOut(auth);
   };
 
-  const authInfo = {
+  const authInfo: AuthContextType = {
     user,
     setUser,
     createUser,
@@ -109,10 +95,9 @@ const AuthProvider = ({ children  }) => {
     err,
     setErr,
   };
+
   return (
-    <AuthContext.Provider value={authInfo}>
-    {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
 };
 

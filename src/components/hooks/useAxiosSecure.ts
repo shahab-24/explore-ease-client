@@ -19,11 +19,11 @@ const useAxiosSecure = () => {
 
     const requestInterceptor = axiosSecure.interceptors.request.use(
       function (config) {
-        setLoading(true);
+        // setLoading(true);
         return config;
       },
       async (error) => {
-        setLoading(false);
+        // setLoading(false);
 
         return Promise.reject(error);
       }
@@ -31,7 +31,7 @@ const useAxiosSecure = () => {
 
     const responseInterceptor = axiosSecure.interceptors.response.use(
       function (res) {
-        setLoading(false);
+        // setLoading(false);
         return res;
       },
       async function (error) {

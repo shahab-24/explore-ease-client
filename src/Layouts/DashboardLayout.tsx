@@ -13,26 +13,69 @@ import { useState, useEffect } from "react";
 import useAuth from "../components/hooks/useAuth";
 import { motion, AnimatePresence } from "framer-motion";
 import WelcomeNote from "../components/WelcomeNote"
+import useAxiosSecure from "@/components/hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import AdminMenu from "@/components/Sidebar/AdminMenu";
+import TouristMenu from "@/components/Sidebar/TouristMenu";
+import GuideMenu from "@/components/Sidebar/GuideMenu";
+import useUserApi from "@/components/hooks/useUserApi";
 
 const DashboardLayout = () => {
+        const {getUserProfile} = useUserApi()
   const [menuOpen, setMenuOpen] = useState(false);
+//   const [user, setUser] = useState()
   const { user } = useAuth();
   const location = useLocation();
+  const axiosSecure = useAxiosSecure()
+//   console.log(user)
+
+// useEffect(() => {
+//         const fetchUser = async () => {
+//                 try {
+//                         const res = await axiosSecure.get(`/users`)
+//         return setUser(res.data);
+                
+//                 } catch (error) {
+//                         console.log(error)
+                        
+//                 }
+
+//         }
+
+//         fetchUser()
+        
+        
+// }, [])
+
+const { user: loggedUser } = useAuth();
+
+const { data: profile, isLoading } = useQuery({
+  queryKey: ["user-profile", loggedUser?.email],
+  queryFn: () => getUserProfile(loggedUser?.email as string),
+  enabled: !!loggedUser?.email,
+})
+
+// console.log(profile)
 
   // Auto-close sidebar on route change (for mobile)
   useEffect(() => {
     setMenuOpen(false);
   }, [location.pathname]);
 
-  const navLinks = [
-    { to: '/', label: 'Home', icon: <HomeIcon className="w-5 h-5" /> },
-    { to: '/dashboard/profile', label: 'Manage Profile', icon: <User className="w-5 h-5" /> },
-    { to: '/dashboard/bookings', label: 'My Bookings', icon: <Calendar className="w-5 h-5" /> },
-    { to: '/dashboard/stories-manage', label: 'Manage Stories', icon: <BookOpenText className="w-5 h-5" /> },
-    { to: '/dashboard/stories-add', label: 'Add Stories', icon: <PlusCircle className="w-5 h-5" /> },
-    { to: '/dashboard/become-guide', label: 'Join as Tour Guide', icon: <Mountain className="w-5 h-5" /> }
-  ];
 
+
+const navLinks = [
+        { to: '/', label: 'Home', icon: <HomeIcon className="w-5 h-5" />, roles: ["tourist", "guide", "admin"] },
+        { to: '/dashboard/profile', label: 'Manage Profile', icon: <User className="w-5 h-5" />, roles: ["tourist", "guide", "admin"] },
+        { to: '/dashboard/bookings', label: 'My Bookings', icon: <Calendar className="w-5 h-5" />, roles: ["tourist"] },
+        { to: '/dashboard/stories-manage', label: 'Manage Stories', icon: <BookOpenText className="w-5 h-5" />, roles: ["tourist", "guide"] },
+        { to: '/dashboard/stories-add', label: 'Add Stories', icon: <PlusCircle className="w-5 h-5" />, roles: ["tourist", "guide"] },
+        { to: '/dashboard/become-guide', label: 'Join as Tour Guide', icon: <Mountain className="w-5 h-5" />, roles: ["tourist"] },
+        { to: '/dashboard/guide/assigned-tours', label: 'Assigned Tours', icon: <Mountain className="w-5 h-5" />, roles: ["guide"] },
+        { to: '/dashboard/admin/manage-users', label: 'Admin: Manage Users', icon: <User className="w-5 h-5" />, roles: ["admin"] },
+        { to: '/dashboard/admin/add-package', label: 'Add Package', icon: <User className="w-5 h-5" />, roles: ["admin"] },
+      ];
+      
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
@@ -68,7 +111,7 @@ const DashboardLayout = () => {
             </div>
 
             {/* Navigation */}
-            <nav className="space-y-4">
+            {/* <nav className="space-y-4">
               {navLinks.map(({ to, label, icon }) => (
                 <NavLink
                   key={to}
@@ -82,13 +125,41 @@ const DashboardLayout = () => {
                   {icon} {label}
                 </NavLink>
               ))}
-            </nav>
+            </nav> */}
+{/* {!user?.role ? (
+  <p className="text-center text-sm text-gray-600">Loading menu...</p>
+) : (
+  <nav className="space-y-4">
+    {navLinks
+      .filter(link => link.roles.includes(user.role as string))
+      .map(({ to, label, icon }) => (
+        <NavLink
+          key={to}
+          to={to}
+          className={({ isActive }) =>
+            `flex items-center gap-2 px-3 py-2 rounded-md transition-all duration-200 ${
+              isActive
+                ? "bg-blue-200 text-blue-800 font-semibold"
+                : "text-gray-700 hover:text-blue-600"
+            }`
+          }
+        >
+          {icon} {label}
+        </NavLink>
+      ))}
+  </nav>
+)} */}
+
+{profile?.role === "admin" && <AdminMenu />}
+        {profile?.role === "tourist" && <TouristMenu />}
+        {profile?.role === "guide" && <GuideMenu />}
+
           </motion.aside>
         )}
       </AnimatePresence>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col min-h-screen overflow-hidden">
         {/* Mobile menu button */}
         <div className="md:hidden p-4 bg-white shadow-md flex justify-between items-center">
           <button onClick={() => setMenuOpen(true)}>
@@ -113,7 +184,7 @@ const DashboardLayout = () => {
         
 
         {/* Page content */}
-        <main className="flex-1 p-6 bg-gray-50 overflow-y-auto">
+        <main className="flex-1 p-6 bg-gray-50 overflow-y-auto min-h-screen">
                 
           <Outlet />
         </main>

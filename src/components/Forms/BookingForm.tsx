@@ -2,6 +2,7 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { BookingFormProps, BookingData } from "@/Types/BookingFormProps";
+import useAuth from "../hooks/useAuth";
 
 
 const BookingForm = ({
@@ -13,6 +14,7 @@ const BookingForm = ({
 }: BookingFormProps) => {
   const [tourDate, setTourDate] = useState<Date | null>(null);
   const [selectedGuide, setSelectedGuide] = useState("");
+  const {loading} = useAuth()
 
   // Handle form submit
   const handleSubmit = () => {
@@ -105,12 +107,13 @@ const BookingForm = ({
 
         {/* Submit Button */}
         <button
-          onClick={handleSubmit}
-          disabled={!tourDate || !selectedGuide}
-          className="btn btn-success w-full mt-3"
-        >
-          Book Now
-        </button>
+  onClick={handleSubmit}
+  disabled={!tourDate || !selectedGuide}
+  className={`btn btn-success w-full mt-3 ${loading ? "btn-disabled" : ""}`}
+>
+  {loading ? "Processing..." : "Book Now"}
+</button>
+
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import useAuth from "./hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
-import { getUserProfile } from "@/Types/Api/UserApi";
 import LoadingSpinner from "./shared/LoadingSpinner";
+import { getUserProfile } from '@/Types/Api/UserApi';
+import useUserApi from "./hooks/useUserApi";
 
 interface WelcomeNoteProps {
   role: "tourist" | "admin" | "tourguide";
@@ -10,6 +11,7 @@ interface WelcomeNoteProps {
 }
 
 const WelcomeNote = ({ role }: WelcomeNoteProps) => {
+        const {getUserProfile} = useUserApi()
   const { user } = useAuth();
 //   console.log(user, "from welcome note")
 

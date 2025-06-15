@@ -1,11 +1,20 @@
 export interface Story {
-  title: string;
-  snippet: string;
-  _id: string;
-  description: string;
-  images?: string[];
-  photo?: string;
-}
+        _id: string;
+        title: string;
+        description: string;
+        photo: string;
+        images?: string[];
+        story: string;
+        date: string;
+        author: {
+          name: string;
+          email: string;
+          uid: string;
+        };
+        likes: number;
+        likedBy: string[];
+      }
+      
 
 export interface TourGuide {
   _id: string;

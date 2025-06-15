@@ -4,18 +4,24 @@ import useAxiosSecure from "@/components/hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Story } from "@/Types/TourGuide";
+import useUserRole from "@/components/hooks/useUserRole";
 
 const ManageStories = () => {
   const { user } = useAuth();
+  const{role, isLoading} = useUserRole()
   const axiosSecure = useAxiosSecure();
+//   console.log(user.email)
+//   console.log(role)
 
   const { data: stories = [], refetch } = useQuery<Story[]>({
     queryKey: ["stories", user?.email],
+    enabled: !!user.email,
     queryFn: async () => {
       const res = await axiosSecure.get(`/stories?email=${user?.email}`);
       return res.data;
     },
   });
+//   console.log(stories)
 
   const deleteStory = useMutation({
     mutationFn: (id: string) => axiosSecure.delete(`/stories/${id}`),
@@ -34,7 +40,7 @@ const ManageStories = () => {
   <div key={story._id} className="bg-base-100 dark:bg-base-200 shadow-md rounded-xl overflow-hidden">
     {/* Image Grid */}
     <div className="grid grid-cols-2 gap-2 p-2">
-      {(story.images && story.images.length > 0 ? story.images : [story.photo || image[0]]).map((img, index) => (
+      {(story.images && story.images.length > 0 ? story.images : [story.photo || "placeholder.jpg"]).map((img, index) => (
         <img
           key={index}
           src={img}

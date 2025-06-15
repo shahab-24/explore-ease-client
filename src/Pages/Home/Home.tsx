@@ -3,7 +3,7 @@ import CategoryTabs from "../../components/CategoryTabs";
 import OverviewSection from "./OverviewSection";
 import TopDestinations from "./TopDestinations";
 import TourismSection from "./TourismSection";
-import TouristStorySection from "./TouristStorySection";
+import HomeStoriesSection from "./HomeStoriesSection";
 
 
 
@@ -22,7 +22,7 @@ const Home = () => {
      <TourismSection></TourismSection>
      </div>
      <div className="my-10">
-     <TouristStorySection></TouristStorySection>
+     <HomeStoriesSection></HomeStoriesSection>
      </div>
      <div className="my-10">
      <TopDestinations></TopDestinations>

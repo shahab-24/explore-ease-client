@@ -1,5 +1,6 @@
 import { Tourplan } from './TourPlan';
 
+
 export interface Package {
 
         _id: string;
@@ -7,5 +8,5 @@ export interface Package {
         description: string;
         price: number;
         images: string[];
-        tourplan: Tourplan[];
+        tourPlan: Tourplan[];
 }

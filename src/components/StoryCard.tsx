@@ -8,7 +8,8 @@ type Props = {
   image: string;
   author: string;
   date: string;
-  isManage?: boolean; // show Edit/Delete only in Manage view
+  
+  isManage?: boolean; 
   onDelete?: (id: string) => void;
 };
 
@@ -21,10 +22,10 @@ const StoryCard = ({ _id, title, description, image, isManage, onDelete }: Props
       <div className="p-4 space-y-2">
         <h3 className="text-lg font-bold">{title}</h3>
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          {description.slice(0, 100)}...
+          {description?.slice(0, 100)}...
         </p>
         <div className="flex justify-between items-center mt-3">
-          <FacebookShareButton url={shareUrl} quote={title}>
+          <FacebookShareButton url={shareUrl} >
             <FacebookIcon size={32} round />
           </FacebookShareButton>
 

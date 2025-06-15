@@ -1,17 +1,18 @@
 import { useState } from "react";
 import useAuth from "../components/hooks/useAuth";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
-import {getUserProfile, updateUserProfile} from '../Types/Api/UserApi'
 
 import EditProfileForm from "@/components/Forms/EditProfileForm";
 import { User } from "@/Types/UserTypes";
+import useUserApi from "@/components/hooks/useUserApi";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 
 
 const ManageProfile = () => {
+        const {getUserProfile, updateUserProfile} = useUserApi()
   const { user } = useAuth();
   const email = user?.email
   const [editing, setEditing] = useState(false);
@@ -31,6 +32,8 @@ const {data: profile, refetch} = useQuery<User>({
         enabled: !!email,
         queryFn: () => getUserProfile(email)
 })
+console.log(profile?.role)
+// console.log(user.role)
 
 //   const updateUserMutation = useMutation({
 //     mutationFn: (updatedData) =>
@@ -54,7 +57,7 @@ const mutation = useMutation({
         }
 })
 
-if(!profile) return <p>Loading.....</p>
+if(!profile) return <LoadingSpinner></LoadingSpinner>
 
 //   const onSubmit = (data) => {
 //     updateUserMutation.mutate(data);
@@ -165,7 +168,7 @@ return (
     
           <div className="mt-4 flex gap-3">
             <button className="btn btn-primary" onClick={() => setEditing(true)}>Edit</button>
-            <button className="btn btn-outline" onClick={() => location.href = "/dashboard/become-guide"}>Apply as Tour Guide</button>
+            <button className="btn btn-outline" onClick={() => navigate("/dashboard/become-guide")}>Apply as Tour Guide</button>
           </div>
     
           {editing && (

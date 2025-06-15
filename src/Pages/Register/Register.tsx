@@ -7,11 +7,11 @@ import UploadImage from "../../components/UploadImage"
 
 import Lottie from "lottie-react";
 import registerData from "../../assets/register.json";
-import useAuth from "../../components/hooks/useAuth";
 import { useState } from "react";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import {  updateProfile } from "firebase/auth";
+import useAuth from "@/components/hooks/useAuth";
 
 
 const Register = () => {

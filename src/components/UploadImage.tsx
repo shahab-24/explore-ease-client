@@ -55,12 +55,12 @@ const UploadImage: React.FC<UploadImageProps> = ({ multiple = false, onUpload })
   return (
     <div className="space-y-3">
       <div
-        className="p-6 border-2 border-dashed rounded-lg text-center hover:bg-gray-50 transition-colors cursor-pointer"
+        className="p-6 border-2 border-dashed rounded-lg text-center hover:scale-102 transition-colors cursor-pointer"
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         onClick={() => document.getElementById("upload-input")?.click()}
       >
-        <p>ছবি টানুন-ছেড়ে দিন অথবা ক্লিক করুন</p>
+        <p>Drag & Drop or Click Your Desired Images</p>
         {uploading && <p className="text-green-600 mt-2">Uploading...</p>}
       </div>
 

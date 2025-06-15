@@ -1,7 +1,7 @@
 
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import useAuth from '@/components/hooks/useAuth';
 import useAxiosSecure from '@/components/hooks/useAxiosSecure';
@@ -42,6 +42,10 @@ const JoinAsTourGuide = () => {
     }
   };
 
+  if (!user) {
+        return <Navigate to="/login" state={{ from: location }} replace />;
+      }
+      
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}

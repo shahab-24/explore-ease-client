@@ -1,14 +1,14 @@
-import useAxiosPublic from "@/components/hooks/useAxiosPublic"
+import useAxiosSecure from "@/components/hooks/useAxiosSecure";
 import { User } from "../UserTypes"
-const axiosPublic = useAxiosPublic()
+const axiosSecure = useAxiosSecure()
 
 export const getUserProfile = async(email: string): Promise<User> => {
-        const res = await axiosPublic.get(`/users/profile?email=${email}`)
+        const res = await axiosSecure.get(`/users/profile?email=${email}`)
         return res.data;
 
 }
 
 export const updateUserProfile = async (email:string, data: Partial<User>): Promise <User> => {
-        const res = await axiosPublic.put(`/users/profile`, {...data, email})
+        const res = await axiosSecure.put(`/users/profile`, {...data, email})
         return res.data
 }

@@ -27,7 +27,7 @@ const Navbar = () => {
             Swal.fire("Logged Out!", "You have been logged out.", "success");
             navigate('/')
           })
-          .catch(error => console.error(error));
+          .catch((error) => console.error(error));
       }
     });
   };
