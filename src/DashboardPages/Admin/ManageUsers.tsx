@@ -9,12 +9,12 @@ interface User {
   _id: string;
   name: string;
   email: string;
-  role: "tourist" | "guide" | "admin";
+  role: "tourist" | "tourGuide" | "admin";
 }
 
 const roleOptions = [
   { value: "tourist", label: "Tourist" },
-  { value: "guide", label: "Guide" },
+  { value: "tourGuide", label: "TourGuide" },
   { value: "admin", label: "Admin" },
 ];
 
@@ -29,7 +29,7 @@ const ManageUsers: React.FC = () => {
     queryKey: ["admin-users", search, roleFilter?.value],
     queryFn: () =>
       axiosSecure
-        .get(`/admin/manage-users`, {
+        .get("/admin/manage-users", {
           params: { search, role: roleFilter?.value },
         })
         .then((res) => res.data),
@@ -48,6 +48,19 @@ const ManageUsers: React.FC = () => {
     },
   });
 
+  const deleteUserMutation = useMutation({
+        mutationFn: async (userId: string) => {
+          await axiosSecure.delete(`/admin/delete-user/${userId}`);
+        },
+        onSuccess: () => {
+          Swal.fire("Deleted!", "User has been deleted.", "success");
+          queryClient.invalidateQueries({ queryKey: ["admin-users"] });
+        },
+        onError: () => {
+          Swal.fire("Error", "Failed to delete user", "error");
+        },
+      });
+
   const handleSearch = () => {
     refetch();
   };
@@ -58,7 +71,7 @@ const ManageUsers: React.FC = () => {
       input: "select",
       inputOptions: {
         tourist: "Tourist",
-        guide: "Guide",
+        guide: "TourGuide",
         admin: "Admin",
       },
       inputPlaceholder: "Select a role",
@@ -70,6 +83,22 @@ const ManageUsers: React.FC = () => {
       changeRoleMutation.mutate({ email: user.email, newRole: selectedRole });
     }
   };
+
+  const handleDeleteUser = (user: User) => {
+        Swal.fire({
+          title: `Delete ${user.name}?`,
+          text: `This action cannot be undone!`,
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Yes, delete!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            deleteUserMutation.mutate(user._id);
+          }
+        });
+      };
 
   return (
     <div className="p-4 md:p-6 space-y-6 animate-fadeIn">
@@ -91,7 +120,7 @@ const ManageUsers: React.FC = () => {
             options={roleOptions}
             isClearable
             placeholder="Filter by role"
-            className="text-black dark:text-white"
+            className="text-black dark:text-gray-600"
           />
         </div>
         <button onClick={handleSearch} className="btn btn-primary w-full md:w-auto">
@@ -129,7 +158,11 @@ const ManageUsers: React.FC = () => {
                     >
                       Change Role
                     </button>
-                    <button className="btn btn-sm btn-error" disabled>
+                      <button
+                      onClick={() => handleDeleteUser(user)}
+                      className="btn btn-sm btn-error"
+                      disabled={deleteUserMutation.isPending}
+                    >
                       Delete
                     </button>
                   </td>

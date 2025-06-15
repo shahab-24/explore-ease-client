@@ -14,6 +14,7 @@ import DashboardLayout from './../Layouts/DashboardLayout';
 import EditStoryPage from "@/DashboardPages/EditStoryPage/EditStoryPage";
 import AddPackageForm from "@/DashboardPages/Admin/AddPackageForm";
 import ManageUsers from "@/DashboardPages/Admin/ManageUsers";
+import ManageCandidates from "@/DashboardPages/Admin/ManageCandidates";
 
 export const dashboardRoutes: RouteObject = {
   path: "/dashboard",
@@ -103,6 +104,14 @@ export const dashboardRoutes: RouteObject = {
         element: (
                 <RoleBasedRoute allowedRoles={['admin']}>
                         <AddPackageForm></AddPackageForm>
+                </RoleBasedRoute>
+        )
+    },
+    {
+        path: 'admin/manage-candidates',
+        element: (
+                <RoleBasedRoute allowedRoles={['admin']}>
+                <ManageCandidates></ManageCandidates>
                 </RoleBasedRoute>
         )
     }

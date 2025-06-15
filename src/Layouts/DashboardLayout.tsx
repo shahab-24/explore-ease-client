@@ -169,7 +169,7 @@ const navLinks = [
         </div>
 
         {/* Header */}
-        <div className="p-4 bg-blue-400 flex justify-end items-center gap-4 shadow-md">
+        <div className="p-4 bg-fixed z-50 bg-blue-400 flex justify-end items-center gap-4 shadow-md">
           <img
             src={user?.photoURL}
             alt="Profile"
