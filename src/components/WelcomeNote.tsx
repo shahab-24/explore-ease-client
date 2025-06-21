@@ -6,7 +6,7 @@ import { getUserProfile } from '@/Types/Api/UserApi';
 import useUserApi from "./hooks/useUserApi";
 
 interface WelcomeNoteProps {
-  role: "tourist" | "admin" | "tourguide";
+  role: "tourist" | "admin" | "tourGuide";
   displayName?: string;
 }
 
@@ -41,11 +41,11 @@ const WelcomeNote = ({ role }: WelcomeNoteProps) => {
       sub: "Get ready to explore new destinations and book exciting adventures.",
     },
     admin: {
-      heading: `Hello, Admin ${profile.name || ""}`,
+      heading: `Hello, Admin,  ${profile.name || ""}`,
       sub: "Monitor, manage and lead the ExploreEase platform with control.",
     },
     tourguide: {
-      heading: `Greetings, Guide ${profile.name || ""}`,
+      heading: `Greetings, TourGuide,  ${profile.name || ""}`,
       sub: "Show the world your travel stories and lead new experiences.",
     },
   };

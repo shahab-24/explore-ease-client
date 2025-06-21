@@ -6,7 +6,8 @@ export interface BookingInfo {
         touristImage: string | undefined;
         price: number;
         tourDate: Date | null;
-        guideName: string
+        selecteGuide: {name: string,
+                email: string}
 
 
 }

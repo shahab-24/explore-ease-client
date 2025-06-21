@@ -2,6 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import StoryCard from "@/components/StoryCard";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 const HomeStoriesSection = () => {
   const { data: stories = [], isLoading } = useQuery({
@@ -12,7 +13,7 @@ const HomeStoriesSection = () => {
     },
   });
 
-  if (isLoading) return <p className="text-center py-10">Loading stories...</p>;
+  if (isLoading) return <LoadingSpinner></LoadingSpinner>;
 
   return (
     <section className="bg-base-100 dark:bg-base-200 py-12 px-4">
@@ -22,7 +23,7 @@ const HomeStoriesSection = () => {
         </h2>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {stories.map((story: any) => (
+          {stories?.map((story: any) => (
             <StoryCard
               key={story._id}
               _id={story._id}

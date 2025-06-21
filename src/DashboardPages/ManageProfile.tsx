@@ -32,7 +32,7 @@ const {data: profile, refetch} = useQuery<User>({
         enabled: !!email,
         queryFn: () => getUserProfile(email)
 })
-console.log(profile?.role)
+// console.log(profile?.role)
 // console.log(user.role)
 
 //   const updateUserMutation = useMutation({
@@ -154,7 +154,7 @@ if(!profile) return <LoadingSpinner></LoadingSpinner>
 
 return (
         <div className="max-w-3xl mx-auto bg-gray-400 p-6 rounded shadow">
-          <h1 className="text-2xl font-bold mb-4">Welcome, {profile.name} 👋</h1>
+          <h1 className="text-2xl font-bold mb-4">Welcome, {profile.name} </h1>
     
           <div className="flex gap-4">
             <img src={profile.photo} alt={profile.name} className="w-24 h-24 rounded-full" />

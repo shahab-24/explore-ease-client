@@ -32,11 +32,8 @@ const ManageCandidates = () => {
   const acceptMutation = useMutation({
     mutationFn: async (candidate: Candidate) => {
       setLoadingId(candidate._id);
-      await axiosSecure.patch(`/admin/users/upgrade-role`, {
-        email: candidate.userEmail,
-        newRole: "TourGuide",
-      });
-      await axiosSecure.delete(`/admin/guide-requests/${candidate._id}`);
+      await axiosSecure.post(`/admin/guide-requests/accept/${candidate._id}`);
+//       await axiosSecure.delete(`/admin/guide-requests/reject/${candidate._id}`);
     },
     onSuccess: () => {
       Swal.fire("Success", "User upgraded to Tour Guide", "success");
@@ -47,16 +44,39 @@ const ManageCandidates = () => {
 
  
   const rejectMutation = useMutation({
-    mutationFn: async (id: string) => {
-      setLoadingId(id);
-      await axiosSecure.delete(`/admin/guide-requests/${id}`);
-    },
-    onSuccess: () => {
-      Swal.fire("Rejected", "Application has been removed", "info");
-      refetch();
-      setLoadingId(null);
-    },
-  });
+        mutationFn: async (id: string) => {
+          setLoadingId(id);
+          await axiosSecure.delete(`/admin/guide-requests/${id}`);
+        },
+        onSuccess: () => {
+          Swal.fire("Rejected", "Application has been removed", "success");
+          refetch();
+          setLoadingId(null);
+        },
+        onError: () => {
+          Swal.fire("Error", "Failed to reject application", "error");
+          setLoadingId(null);
+        },
+      });
+
+      const handleReject = async (id: string) => {
+        const result = await Swal.fire({
+          title: "Are you sure?",
+          text: "This will permanently remove the application.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Yes, reject it",
+          cancelButtonText: "Cancel",
+        });
+      
+        if (result.isConfirmed) {
+          rejectMutation.mutate(id);
+        }
+      };
+      
+      
 
   if (isLoading) return <LoadingSpinner />;
 
@@ -100,14 +120,14 @@ const ManageCandidates = () => {
                       className="btn btn-success btn-xs"
                       disabled={loadingId === c._id}
                     >
-                      {loadingId === c._id ? "..." : "Accept"}
+                      {loadingId === c._id ? "..." : "Accepted"}
                     </button>
                     <button
                       onClick={() => rejectMutation.mutate(c._id)}
                       className="btn btn-error btn-xs"
                       disabled={loadingId === c._id}
                     >
-                      {loadingId === c._id ? "..." : "Reject"}
+                      {loadingId === c._id ? "..." : "Rejected"}
                     </button>
                   </td>
                 </tr>

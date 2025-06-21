@@ -2,6 +2,7 @@
 import { User } from "@/Types/UserTypes";
 import useAxiosSecure from "./useAxiosSecure";
 
+
 const useUserApi = () => {
   const axiosSecure = useAxiosSecure();
 

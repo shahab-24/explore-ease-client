@@ -4,6 +4,7 @@ import OverviewSection from "./OverviewSection";
 import TopDestinations from "./TopDestinations";
 import TourismSection from "./TourismSection";
 import HomeStoriesSection from "./HomeStoriesSection";
+import DebugTourGuides from "@/components/DebugTourGuides";
 
 
 
@@ -26,6 +27,9 @@ const Home = () => {
      </div>
      <div className="my-10">
      <TopDestinations></TopDestinations>
+     </div>
+     <div className="my-10">
+     <DebugTourGuides></DebugTourGuides>
      </div>
     
 

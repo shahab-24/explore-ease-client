@@ -13,7 +13,7 @@ const TouristMenu = () => {
       <NavLink to="/dashboard/bookings" className={({ isActive }) => navClass(isActive)}>
         <Calendar className="w-5 h-5" /> My Bookings
       </NavLink>
-      <NavLink to="/dashboard/stories-manage" className={({ isActive }) => navClass(isActive)}>
+      <NavLink to="/dashboard/manage-stories" className={({ isActive }) => navClass(isActive)}>
         <BookOpenText className="w-5 h-5" /> Manage Stories
       </NavLink>
       <NavLink to="/dashboard/stories-add" className={({ isActive }) => navClass(isActive)}>

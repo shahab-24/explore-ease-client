@@ -1,13 +1,16 @@
 import { NavLink } from "react-router-dom";
-import { User, BookOpenText, PlusCircle, Mountain } from "lucide-react";
+import { User, BookOpenText, PlusCircle, Mountain, Home } from "lucide-react";
 
 const GuideMenu = () => {
   return (
     <nav className="space-y-4">
+      <NavLink to="/" className={({ isActive }) => navClass(isActive)}>
+        <Home className="w-5 h-5" /> Home
+      </NavLink>
       <NavLink to="/dashboard/profile" className={({ isActive }) => navClass(isActive)}>
         <User className="w-5 h-5" /> Manage Profile
       </NavLink>
-      <NavLink to="/dashboard/stories-manage" className={({ isActive }) => navClass(isActive)}>
+      <NavLink to="/dashboard/manage-stories" className={({ isActive }) => navClass(isActive)}>
         <BookOpenText className="w-5 h-5" /> Manage Stories
       </NavLink>
       <NavLink to="/dashboard/stories-add" className={({ isActive }) => navClass(isActive)}>

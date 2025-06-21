@@ -12,7 +12,6 @@ import {
 import { useState, useEffect } from "react";
 import useAuth from "../components/hooks/useAuth";
 import { motion, AnimatePresence } from "framer-motion";
-import WelcomeNote from "../components/WelcomeNote"
 import useAxiosSecure from "@/components/hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import AdminMenu from "@/components/Sidebar/AdminMenu";
@@ -57,7 +56,7 @@ const { data: profile, isLoading } = useQuery({
 
 // console.log(profile)
 
-  // Auto-close sidebar on route change (for mobile)
+  
   useEffect(() => {
     setMenuOpen(false);
   }, [location.pathname]);
@@ -65,13 +64,13 @@ const { data: profile, isLoading } = useQuery({
 
 
 const navLinks = [
-        { to: '/', label: 'Home', icon: <HomeIcon className="w-5 h-5" />, roles: ["tourist", "guide", "admin"] },
-        { to: '/dashboard/profile', label: 'Manage Profile', icon: <User className="w-5 h-5" />, roles: ["tourist", "guide", "admin"] },
+        { to: '/', label: 'Home', icon: <HomeIcon className="w-5 h-5" />, roles: ["tourist", "tourGuide", "admin"] },
+        { to: '/dashboard/profile', label: 'Manage Profile', icon: <User className="w-5 h-5" />, roles: ["tourist", "tourGuide", "admin"] },
         { to: '/dashboard/bookings', label: 'My Bookings', icon: <Calendar className="w-5 h-5" />, roles: ["tourist"] },
-        { to: '/dashboard/stories-manage', label: 'Manage Stories', icon: <BookOpenText className="w-5 h-5" />, roles: ["tourist", "guide"] },
-        { to: '/dashboard/stories-add', label: 'Add Stories', icon: <PlusCircle className="w-5 h-5" />, roles: ["tourist", "guide"] },
+        { to: '/dashboard/stories-manage', label: 'Manage Stories', icon: <BookOpenText className="w-5 h-5" />, roles: ["tourist", "tourGuide"] },
+        { to: '/dashboard/stories-add', label: 'Add Stories', icon: <PlusCircle className="w-5 h-5" />, roles: ["tourist", "tourGuide"] },
         { to: '/dashboard/become-guide', label: 'Join as Tour Guide', icon: <Mountain className="w-5 h-5" />, roles: ["tourist"] },
-        { to: '/dashboard/guide/assigned-tours', label: 'Assigned Tours', icon: <Mountain className="w-5 h-5" />, roles: ["guide"] },
+        { to: '/dashboard/guide/assigned-tours', label: 'Assigned Tours', icon: <Mountain className="w-5 h-5" />, roles: ["tourGuide"] },
         { to: '/dashboard/admin/manage-users', label: 'Admin: Manage Users', icon: <User className="w-5 h-5" />, roles: ["admin"] },
         { to: '/dashboard/admin/add-package', label: 'Add Package', icon: <User className="w-5 h-5" />, roles: ["admin"] },
       ];
@@ -110,49 +109,10 @@ const navLinks = [
               </button>
             </div>
 
-            {/* Navigation */}
-            {/* <nav className="space-y-4">
-              {navLinks.map(({ to, label, icon }) => (
-                <NavLink
-                  key={to}
-                  to={to}
-                  className={({ isActive }) =>
-                    `flex items-center gap-2 px-3 py-2 rounded-md transition-all duration-200 ${
-                      isActive ? "bg-blue-200 text-blue-800 font-semibold" : "text-gray-700 hover:text-blue-600"
-                    }`
-                  }
-                >
-                  {icon} {label}
-                </NavLink>
-              ))}
-            </nav> */}
-{/* {!user?.role ? (
-  <p className="text-center text-sm text-gray-600">Loading menu...</p>
-) : (
-  <nav className="space-y-4">
-    {navLinks
-      .filter(link => link.roles.includes(user.role as string))
-      .map(({ to, label, icon }) => (
-        <NavLink
-          key={to}
-          to={to}
-          className={({ isActive }) =>
-            `flex items-center gap-2 px-3 py-2 rounded-md transition-all duration-200 ${
-              isActive
-                ? "bg-blue-200 text-blue-800 font-semibold"
-                : "text-gray-700 hover:text-blue-600"
-            }`
-          }
-        >
-          {icon} {label}
-        </NavLink>
-      ))}
-  </nav>
-)} */}
-
+           
 {profile?.role === "admin" && <AdminMenu />}
         {profile?.role === "tourist" && <TouristMenu />}
-        {profile?.role === "guide" && <GuideMenu />}
+        {profile?.role === "tourGuide" && <GuideMenu />}
 
           </motion.aside>
         )}

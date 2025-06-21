@@ -4,6 +4,7 @@ import Select from "react-select";
 import Swal from "sweetalert2";
 import useAxiosSecure from "@/components/hooks/useAxiosSecure";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
+import { TourGuide } from "@/Types/TourGuide";
 
 interface User {
   _id: string;
@@ -21,12 +22,19 @@ const roleOptions = [
 const ManageUsers: React.FC = () => {
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
-
   const [search, setSearch] = useState("");
-  const [roleFilter, setRoleFilter] = useState<{ value: string; label: string } | null>(null);
+  const [roleFilter, setRoleFilter] = useState<{
+    value: string;
+    label: string;
+  } | null>(null);
 
-  const { data: users, isLoading, refetch } = useQuery<User[]>({
+  const {
+    data: users,
+    isLoading,
+    refetch,
+  } = useQuery<User[]>({
     queryKey: ["admin-users", search, roleFilter?.value],
+
     queryFn: () =>
       axiosSecure
         .get("/admin/manage-users", {
@@ -36,8 +44,15 @@ const ManageUsers: React.FC = () => {
   });
 
   const changeRoleMutation = useMutation({
-    mutationFn: async ({ email, newRole }: { email: string; newRole: string }) => {
+    mutationFn: async ({
+      email,
+      newRole,
+    }: {
+      email: string;
+      newRole: string;
+    }) => {
       await axiosSecure.patch(`/admin/${email}/role`, { newRole });
+      console.log(newRole)
     },
     onSuccess: () => {
       Swal.fire("Success!", "Role updated successfully", "success");
@@ -49,66 +64,71 @@ const ManageUsers: React.FC = () => {
   });
 
   const deleteUserMutation = useMutation({
-        mutationFn: async (userId: string) => {
-          await axiosSecure.delete(`/admin/delete-user/${userId}`);
-        },
-        onSuccess: () => {
-          Swal.fire("Deleted!", "User has been deleted.", "success");
-          queryClient.invalidateQueries({ queryKey: ["admin-users"] });
-        },
-        onError: () => {
-          Swal.fire("Error", "Failed to delete user", "error");
-        },
-      });
+    mutationFn: async (userId: string) => {
+      await axiosSecure.delete(`/admin/delete-user/${userId}`);
+    },
+    onSuccess: () => {
+      Swal.fire("Deleted!", "User has been deleted.", "success");
+      queryClient.invalidateQueries({ queryKey: ["admin-users"] });
+    },
+    onError: () => {
+      Swal.fire("Error", "Failed to delete user", "error");
+    },
+  });
 
   const handleSearch = () => {
     refetch();
   };
 
   const handleChangeRole = async (user: User) => {
+    console.log(user, "handlechange role");
+
     const { value: selectedRole } = await Swal.fire({
+        
       title: `Change Role for ${user.name}`,
       input: "select",
       inputOptions: {
         tourist: "Tourist",
-        guide: "TourGuide",
+        tourGuide: "TourGuide",
         admin: "Admin",
       },
       inputPlaceholder: "Select a role",
       inputValue: user.role,
       showCancelButton: true,
     });
-
+    console.log(selectedRole)
     if (selectedRole && selectedRole !== user.role) {
       changeRoleMutation.mutate({ email: user.email, newRole: selectedRole });
     }
   };
 
   const handleDeleteUser = (user: User) => {
-        Swal.fire({
-          title: `Delete ${user.name}?`,
-          text: `This action cannot be undone!`,
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#d33",
-          cancelButtonColor: "#3085d6",
-          confirmButtonText: "Yes, delete!",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            deleteUserMutation.mutate(user._id);
-          }
-        });
-      };
+    Swal.fire({
+      title: `Delete ${user.name}?`,
+      text: `This action cannot be undone!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteUserMutation.mutate(user._id);
+      }
+    });
+  };
 
   return (
     <div className="p-4 md:p-6 space-y-6 animate-fadeIn">
-      <h2 className="text-2xl md:text-3xl font-bold text-center text-primary">👥 Manage Users</h2>
+      <h2 className="text-2xl md:text-3xl font-bold text-center text-primary">
+         Manage Users
+      </h2>
 
       {/* Search + Filter */}
       <div className="flex flex-col md:flex-row gap-3 items-stretch">
         <input
           type="text"
-          placeholder="🔍 Search by name or email"
+          placeholder=" Search by name or email"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="input input-bordered w-full"
@@ -123,7 +143,10 @@ const ManageUsers: React.FC = () => {
             className="text-black dark:text-gray-600"
           />
         </div>
-        <button onClick={handleSearch} className="btn btn-primary w-full md:w-auto">
+        <button
+          onClick={handleSearch}
+          className="btn btn-primary w-full md:w-auto"
+        >
           Apply Filters
         </button>
       </div>
@@ -148,7 +171,9 @@ const ManageUsers: React.FC = () => {
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>
-                    <span className="badge badge-info capitalize">{user.role}</span>
+                    <span className="badge badge-info capitalize">
+                      {user.role}
+                    </span>
                   </td>
                   <td className="flex flex-wrap justify-center gap-2 py-2">
                     <button
@@ -158,7 +183,7 @@ const ManageUsers: React.FC = () => {
                     >
                       Change Role
                     </button>
-                      <button
+                    <button
                       onClick={() => handleDeleteUser(user)}
                       className="btn btn-sm btn-error"
                       disabled={deleteUserMutation.isPending}
@@ -170,7 +195,10 @@ const ManageUsers: React.FC = () => {
               ))}
               {users?.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="text-center py-8 text-gray-500 dark:text-gray-400">
+                  <td
+                    colSpan={4}
+                    className="text-center py-8 text-gray-500 dark:text-gray-400"
+                  >
                     No users found.
                   </td>
                 </tr>

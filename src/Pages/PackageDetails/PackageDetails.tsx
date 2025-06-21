@@ -25,7 +25,7 @@ const PackageDetails: React.FC = () => {
   const [guides, setGuides] = useState<TourGuide[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch package & guide data
+  //  Fetch package & guide data
   useEffect(() => {
     if (!id) return;
 
@@ -48,7 +48,7 @@ const PackageDetails: React.FC = () => {
     fetchData();
   }, [id, axiosSecure]);
 
-  // ✅ Handle booking submission
+  // Handle booking submission
   const handleBookingSubmit = async (formData: BookingData) => {
     if (!pkg || !user) return;
 
@@ -60,7 +60,7 @@ const PackageDetails: React.FC = () => {
       touristImage: user.photoURL,
       price: pkg.price,
       tourDate: formData.tourDate,
-      guideName: formData.guideName,
+      selecteGuide: formData.guide,
     };
 
     try {
@@ -82,20 +82,20 @@ const PackageDetails: React.FC = () => {
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-16 space-y-12">
-      {/* ✅ Gallery */}
+      {/*  Gallery */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {pkg.images.map((img, i) => (
           <GalleryImage key={i} src={img} alt={`Gallery ${i}`} index={i} />
         ))}
       </div>
 
-      {/* ✅ About Section */}
+      {/*  About Section */}
       <div>
         <h2 className="text-3xl font-bold text-green-700 mb-2">{pkg.name}</h2>
-        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{pkg.description}</p>
+        <p className="text-green-400 dark:text-gray-300 leading-relaxed">{pkg.description}</p>
       </div>
 
-      {/* ✅ Tour Plan */}
+      {/*  Tour Plan */}
       <div>
         <h3 className="text-2xl font-semibold text-green-600 mb-4">Tour Plan</h3>
         <ul className="space-y-3">
@@ -108,7 +108,7 @@ const PackageDetails: React.FC = () => {
         </ul>
       </div>
 
-      {/* ✅ Tour Guides */}
+      {/*  Tour Guides */}
       <div>
         <h3 className="text-2xl font-semibold text-green-600 mb-4">Our Tour Guides</h3>
         <div className="overflow-x-auto">
@@ -116,7 +116,7 @@ const PackageDetails: React.FC = () => {
             {guides.map((g) => (
               <Link key={g._id} to={`/tourGuidesProfile/${g._id}`}>
                 <motion.div
-                  className="transform rotate-45 w-32 h-32 bg-base-200 shadow hover:shadow-lg transition flex items-center justify-center cursor-pointer"
+                  className="transform rotate-45 w-40 h-40 bg-base-200 shadow hover:shadow-lg transition flex items-center justify-center cursor-pointer"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -136,7 +136,7 @@ const PackageDetails: React.FC = () => {
         </div>
       </div>
 
-      {/* ✅ Booking Form */}
+      {/*  Booking Form */}
       <div className="mt-8">
         {user ? (
           <BookingForm

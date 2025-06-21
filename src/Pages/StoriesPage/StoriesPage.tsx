@@ -2,17 +2,20 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import StoryCard from "@/components/StoryCard";
+import useAxiosPublic from "@/components/hooks/useAxiosPublic";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 const StoriesPage = () => {
+        const axiosPublic =useAxiosPublic()
   const { data: stories = [], isLoading } = useQuery({
     queryKey: ["stories"],
     queryFn: async () => {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/all-stories`);
+      const res = await axiosPublic.get(`${import.meta.env.VITE_API_URL}/all-stories`);
       return res.data;
     },
   });
 
-  if (isLoading) return <p className="text-center py-10">Loading stories...</p>;
+  if (isLoading) return <LoadingSpinner></LoadingSpinner>
 
   return (
     <section className="min-h-screen py-16 px-4 bg-base-200">

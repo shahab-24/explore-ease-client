@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useCallback, DragEvent } from "react";
+import Swal from "sweetalert2";
 
 export type UploadImageProps = {
   multiple?: boolean;
@@ -23,11 +24,15 @@ const UploadImage: React.FC<UploadImageProps> = ({ multiple = false, onUpload })
         );
         const imageUrl = res.data.secure_url;
         setPreviewUrls(prev => [...prev, imageUrl]);
+        
+        if (typeof onUpload === "function") {
+                onUpload(imageUrl);
+              }
         onUpload(imageUrl);
       }
     } catch (err) {
-      console.error("URL আপলোড ব্যর্থ", err);
-      alert("ছবি আপলোডে সমস্যা হয়েছে");
+      console.error("upload URL failed", err);
+      Swal.fire("failed in uploading image");
     } finally {
       setUploading(false);
     }

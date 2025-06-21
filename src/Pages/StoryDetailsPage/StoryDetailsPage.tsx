@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { FacebookShareButton, FacebookIcon } from "react-share";
 
 import { FaHeart } from "react-icons/fa";
 import useAuth from "../../components/hooks/useAuth";
 import Swal from "sweetalert2";
+import useAxiosSecure from "@/components/hooks/useAxiosSecure";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 const StoryDetailsPage = () => {
   const { id } = useParams();
@@ -13,10 +14,11 @@ const StoryDetailsPage = () => {
   const [story, setStory] = useState(null);
   const [likes, setLikes] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
+  const axiosSecure = useAxiosSecure()
 
-  // Fetch single story by ID
+  
   useEffect(() => {
-    axios.get(`http://localhost:8000/stories/${id}`)
+    axiosSecure.get(`/stories/${id}`)
       .then((res) => {
         setStory(res.data);
         setLikes(res.data?.likes || 0);
@@ -26,9 +28,9 @@ const StoryDetailsPage = () => {
 
   // Handle like
   const handleLike = () => {
-    if (!user) return Swal.error("Please login to like a story.");
+    if (!user) return Swal.fire("Please login to like a story.");
 
-    axios.patch(`http://localhost:8000/stories/${id}/like`, {
+    axiosSecure.patch(`/stories/${id}/like`, {
       userEmail: user?.email,
     }).then(res => {
       setLikes(res.data?.likes);
@@ -36,7 +38,7 @@ const StoryDetailsPage = () => {
     });
   };
 
-  if (!story) return <div className="text-center mt-10">Loading...</div>;
+  if (!story) return <LoadingSpinner></LoadingSpinner>;
 
   return (
     <div className="max-w-3xl mx-auto py-10 px-4">

@@ -6,6 +6,10 @@ export type Booking = {
   guideName: string;
   tourDate: string;
   price: number;
+  selectedGuide: {
+        name: string,
+        email: string
+  }
   status: string;
 };
 
@@ -34,7 +38,7 @@ const BookingTable = ({ bookings, onCancel }: Props) => {
             <tr key={b._id}>
               <td>{i + 1}</td>
               <td>{b.packageName}</td>
-              <td>{b.guideName}</td>
+              <td>{b.selectedGuide?.name}</td>
               <td>{new Date(b.tourDate).toLocaleDateString()}</td>
               <td>${b.price}</td>
               <td>

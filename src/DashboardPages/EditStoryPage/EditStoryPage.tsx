@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAxiosSecure from "@/components/hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 const EditStoryPage = () => {
   const { id } = useParams();
@@ -26,7 +27,7 @@ const EditStoryPage = () => {
     e.preventDefault();
     await axiosSecure.put(`/stories/edit/${id}`, { title, description });
     Swal.fire("Success", "Story updated", "success");
-    navigate("/dashboard/stories-manage");
+    navigate("/dashboard/manage-stories");
   };
 
   const removeImage = async (url: string) => {
@@ -58,7 +59,7 @@ const EditStoryPage = () => {
     }
   };
 
-  if (!story) return <p>Loading...</p>;
+  if (!story) return <LoadingSpinner></LoadingSpinner>;
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-base-100 dark:bg-base-200 rounded shadow">

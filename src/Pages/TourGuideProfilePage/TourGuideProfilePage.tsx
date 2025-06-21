@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { Dialog } from "@headlessui/react";
 import { motion } from "framer-motion";
 import { TourGuide } from "@/Types/TourGuide";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 
 
@@ -27,7 +28,7 @@ const TourGuideProfilePage = () => {
 
         })
 
-        if (isLoading) return <div className="text-center mt-20">Loading...</div>;
+        if (isLoading) return <LoadingSpinner></LoadingSpinner>;
   if (isError) return <div className="text-center mt-20 text-red-500">Something went wrong!</div>;
 
 

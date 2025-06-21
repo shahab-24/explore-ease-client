@@ -7,7 +7,7 @@ export interface User {
         address?: string;
         displayName?: string;
         photoURL?: string;
-        role: "tourist" | "admin" | "guide"
+        role: "tourist" | "admin" | "tourGuide"
 
 
 }

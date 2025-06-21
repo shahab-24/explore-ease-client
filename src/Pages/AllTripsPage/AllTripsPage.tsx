@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
+import useAxiosPublic from "@/components/hooks/useAxiosPublic";
 
 const AllTripsPage = () => {
   const [packages, setPackages] = useState([]);
+  const axiosPublic = useAxiosPublic()
 
   useEffect(() => {
-    axios.get("http://localhost:8000/trips").then((res) => {
+    axiosPublic.get("/trips").then((res) => {
       setPackages(res.data);
     });
   }, []);

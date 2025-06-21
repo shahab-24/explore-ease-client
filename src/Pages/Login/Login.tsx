@@ -6,9 +6,11 @@ import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { UserCredential } from "firebase/auth";
 import useAuth from "@/components/hooks/useAuth";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const { signInWithGoogle, setLoading, signIn } = useAuth();
+  const [showPassword, setShowPassword] = useState(false) 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
@@ -61,6 +63,11 @@ const Login = () => {
     }
   };
 
+  const handleShowPassword = () => {
+        setShowPassword((prev) => !prev);
+      };
+    
+
   return (
     <div className="hero min-h-screen bg-base-200 mt-16">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -86,21 +93,29 @@ const Login = () => {
               />
             </div>
 
-            <div className="form-control">
-              <label className="label">Password</label>
+            <div className="form-control relative">
+              <label className="label" htmlFor="password">
+                Password
+              </label>
               <input
-                type="password"
-                placeholder="Password"
-                className="input input-bordered"
+                id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                className="input input-bordered"
                 required
+                
               />
-              <div className="text-right mt-1">
-                <Link to="/forgot-password" className="link link-hover text-sm text-blue-500">
-                  Forgot password?
-                </Link>
-              </div>
+              <button
+                type="button"
+                onClick={handleShowPassword}
+                className="absolute inset-y-0 right-9 top-5 flex items-center text-green-600"
+                tabIndex={-1}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+              
             </div>
 
             <div className="form-control mt-6">

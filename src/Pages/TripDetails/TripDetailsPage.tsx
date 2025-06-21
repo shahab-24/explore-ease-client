@@ -2,19 +2,22 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
+import useAxiosSecure from "@/components/hooks/useAxiosSecure";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 const TripsDetailsPage = () => {
   const { id } = useParams();
   const [trip, setTrip] = useState(null);
+  const axiosSecure = useAxiosSecure()
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/trips/${id}`).then((res) => {
+    axiosSecure.get(`/trips/${id}`).then((res) => {
       setTrip(res.data);
     });
   }, [id]);
 
   if (!trip) {
-    return <div className="text-center mt-10 text-green-700 text-xl">Loading trip details...</div>;
+    return <LoadingSpinner></LoadingSpinner>;
   }
 
   return (

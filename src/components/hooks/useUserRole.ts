@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "./useAuth";
 import useAxiosSecure from "./useAxiosSecure";
 
-type Role = "admin" | "tourist" | "guide";
+type Role = "admin" | "tourist" | "tourGuide";
 
 interface RoleResponse {
   role: Role;
@@ -27,6 +27,8 @@ const useUserRole = () => {
           retry: 1, 
           staleTime: 5 * 60 * 1000,
         });
+
+        console.log(data?.role, 'use role')
       
         return {
           role: data?.role || null,

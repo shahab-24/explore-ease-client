@@ -13,7 +13,7 @@ const BookingForm = ({
   onSubmit,
 }: BookingFormProps) => {
   const [tourDate, setTourDate] = useState<Date | null>(null);
-  const [selectedGuide, setSelectedGuide] = useState("");
+  const [selectedGuide, setSelectedGuide] = useState<{name: string, email: string} | null>(null);
   const {loading} = useAuth()
 
   // Handle form submit
@@ -22,7 +22,7 @@ const BookingForm = ({
 
     onSubmit({
       tourDate,
-      guideName: selectedGuide,
+      guide: selectedGuide,
     });
   };
 
@@ -92,13 +92,16 @@ const BookingForm = ({
         <div>
           <label className="block font-medium mb-1">Select Tour Guide</label>
           <select
-            value={selectedGuide}
-            onChange={(e) => setSelectedGuide(e.target.value)}
+            value={selectedGuide?.email || ""}
+            onChange={(e) =>{
+                const selected = guides.find((g) => g.email === e.target.value)
+                if(selected){setSelectedGuide({name: selected.name, email: selected.email})}
+                 }}
             className="select select-bordered w-full"
           >
             <option value="">-- Choose a guide --</option>
             {guides?.map((guide) => (
-              <option key={guide._id} value={guide.name}>
+              <option key={guide._id} value={(guide.email) as string}>
                 {guide.name}
               </option>
             ))}

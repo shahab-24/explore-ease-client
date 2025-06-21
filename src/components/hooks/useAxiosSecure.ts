@@ -16,7 +16,6 @@ const useAxiosSecure = () => {
 
   useEffect(() => {
 
-
     const requestInterceptor = axiosSecure.interceptors.request.use(
       function (config) {
         // setLoading(true);
