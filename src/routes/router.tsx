@@ -21,6 +21,8 @@ import ManageStories from "../DashboardPages/ManageStories/ManageStories";
 import EditStoryPage from "../DashboardPages/EditStoryPage/EditStoryPage";
 import MyAssignedTours from '../DashboardPages/GuideDashboard/MyAssignedTours/MyAssignedTours';
 import { dashboardRoutes } from "./DashboardRoutes";
+import StripeProvider from "@/components/StripeProvider/StripeProvider";
+import PaymentPage from "@/Pages/PaymentPage/PaymentPage";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +47,12 @@ export const router = createBrowserRouter([
       {
         path: "packages/:id",
         element: <PackageDetails></PackageDetails>,
+      },
+      {
+        path:'payment/:id',
+        element: <StripeProvider>
+                <PaymentPage></PaymentPage>
+        </StripeProvider>
       },
       {
         path: "tourGuidesProfile/:id",

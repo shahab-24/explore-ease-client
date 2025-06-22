@@ -22,7 +22,7 @@ const MyAssignedTours: React.FC = () => {
     queryFn: () =>
       axiosSecure.get("/tourGuide/assigned-tours").then((res) => res.data),
   });
-//   console.log(tours)
+  console.log(tours)
 
   const updateStatusMutation = useMutation({
     mutationFn: async ({
@@ -83,7 +83,7 @@ const MyAssignedTours: React.FC = () => {
                   <td>{tour.packageName}</td>
                   <td>{tour.touristName}</td>
                   <td>{new Date(tour.tourDate).toLocaleDateString()}</td>
-                  <td>${tour.tourPrice?.toFixed(2)}</td>
+                  <td>${tour.tourPrice}</td>
                   <td>
                     <span className={`badge capitalize ${tour.status === 'accepted' ? 'badge-success' : tour.status === 'rejected' ? 'badge-error' : 'badge-warning'}`}>
                       {tour.status}

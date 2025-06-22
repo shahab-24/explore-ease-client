@@ -60,7 +60,7 @@ const PackageDetails: React.FC = () => {
       touristImage: user.photoURL,
       price: pkg.price,
       tourDate: formData.tourDate,
-      selecteGuide: formData.guide,
+      selectedGuide: formData.guide,
     };
 
     try {
